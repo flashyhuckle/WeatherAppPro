@@ -1,0 +1,64 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : true,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "3656f4b0a1a7821a673f256e7ce72387310cbfdcec4852f2df1e7c265936ba96"
+    },
+    {
+      "guid" : "3656f4b0a1a7821a673f256e7ce72387bc8f340f3bae12596acf2bcc52e28868"
+    },
+    {
+      "guid" : "3656f4b0a1a7821a673f256e7ce72387adfe8c9919f8effaeec31c822351eb69"
+    }
+  ],
+  "containerPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/WeatherAppPro.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "indexbuild",
+    "activeArchitecture" : "x86_64",
+    "activeRunDestination" : {
+      "disableOnlyActiveArch" : false,
+      "platform" : "iphonesimulator",
+      "sdk" : "iphonesimulator16.2",
+      "sdkVariant" : "iphonesimulator",
+      "supportedArchitectures" : [
+        "x86_64"
+      ],
+      "targetArchitecture" : "x86_64"
+    },
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Index.noindex/Build/Intermediates.noindex",
+      "buildProductsPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Index.noindex/Build/Products",
+      "derivedDataPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Index.noindex/PrecompiledHeaders",
+      "pchPath" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Index.noindex/Build/Intermediates.noindex/PrecompiledHeaders"
+    },
+    "configurationName" : "Debug",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO",
+          "INDEX_ARENA_INFO_REGULAR_BUILD_PRODUCTS_DIR" : "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/DerivedData/WeatherAppPro/Build/Products",
+          "ONLY_ACTIVE_ARCH" : "YES"
+        }
+      }
+    }
+  },
+  "qos" : "utility",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : false,
+  "useImplicitDependencies" : true,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : true
+}

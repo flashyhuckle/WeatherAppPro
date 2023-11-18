@@ -1,0 +1,8 @@
+version: "Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)"
+options: "541e8298c94a9e792172e33046f519c0cc08371bad9aea06546231b29078efbf"
+build_start_time: [1671136963, 170923948]
+build_end_time: [1671136967, 575958013]
+inputs:
+  "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/WeatherAppPro/Source/AppDelegate.swift": [1671130551, 63848018]
+  "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/WeatherAppPro/Source/LandingViewController/LandingViewController.swift": [1671136590, 72616338]
+  "/Users/marcinglodzik/Desktop/Projekty iOS/WeatherAppPro/WeatherAppPro/Source/SceneDelegate.swift": [1671136576, 12784957]

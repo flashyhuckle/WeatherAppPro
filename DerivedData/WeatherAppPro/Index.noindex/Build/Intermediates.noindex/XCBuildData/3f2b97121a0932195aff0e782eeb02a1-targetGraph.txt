@@ -1,0 +1,13 @@
+Target dependency graph (8 targets)
+WeatherAppPro in WeatherAppPro, no dependencies
+WeatherAppPro in WeatherAppPro, no dependencies
+WeatherAppProTests in WeatherAppPro, depends on:
+WeatherAppPro in WeatherAppPro (explicit)
+WeatherAppProTests in WeatherAppPro, depends on:
+WeatherAppPro in WeatherAppPro (explicit)
+WeatherAppProTests in WeatherAppPro, no dependencies
+WeatherAppProUITests in WeatherAppPro, depends on:
+WeatherAppPro in WeatherAppPro (explicit)
+WeatherAppProUITests in WeatherAppPro, depends on:
+WeatherAppPro in WeatherAppPro (explicit)
+WeatherAppProUITests in WeatherAppPro, no dependencies
