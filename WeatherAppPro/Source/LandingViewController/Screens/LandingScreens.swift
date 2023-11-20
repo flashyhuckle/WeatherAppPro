@@ -4,7 +4,7 @@ struct LandingScreens {
     func createLandingViewController(
         currentCity: String,
         didTapForecastButton: ((_ city: String) -> Void)?,
-        didTapFavoritesButton: (() -> Void)?
+        didTapFavoritesButton: ((((String) -> Void)?) -> Void)?
     ) -> UIViewController {
         let viewModel = LandingViewModel(
             didTapForecastButton: didTapForecastButton,
@@ -12,6 +12,7 @@ struct LandingScreens {
             apiManager: ApiManager(),
             currentCity: currentCity
         )
+
         return LandingViewController(viewModel: viewModel)
     }
 }

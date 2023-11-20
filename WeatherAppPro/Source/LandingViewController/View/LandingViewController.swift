@@ -61,6 +61,8 @@ class LandingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(forecastButtonPressed), for: .touchUpInside)
         button.setTitleColor(.black, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
         return button
     }()
     
@@ -70,6 +72,8 @@ class LandingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
         button.setTitleColor(.black, for: .normal)
+        button.layer.borderWidth = 1
+        button.layer.borderColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
         return button
     }()
     
@@ -108,13 +112,16 @@ class LandingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+        favoriteButtonSetup()
     }
     
     private func setUpViews() {
         view.backgroundColor = .lightGray
-        
+
         navigationItem.rightBarButtonItem = favoritesBarButton
         navigationItem.leftBarButtonItem = locationSearchButton
+        
+        favoriteButtonSetup()
         
         view.addSubview(searchBar)
         view.addSubview(cityLabel)
@@ -122,6 +129,14 @@ class LandingViewController: UIViewController {
         view.addSubview(weatherImageView)
         view.addSubview(forecastButton)
         view.addSubview(favoritesButton)
+    }
+    
+    private func favoriteButtonSetup() {
+        if viewModel.checkIfFavorite() {
+            favoritesBarButton.image = UIImage(systemName: "star.fill")
+        } else {
+            favoritesBarButton.image = UIImage(systemName: "star")
+        }
     }
     
     private func setUpConstraints() {
@@ -149,7 +164,7 @@ class LandingViewController: UIViewController {
             forecastButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 150),
             forecastButton.heightAnchor.constraint(equalToConstant: 50),
             forecastButton.widthAnchor.constraint(equalToConstant: 150),
-            forecastButton.bottomAnchor.constraint(equalTo: favoritesButton.topAnchor),
+            forecastButton.bottomAnchor.constraint(equalTo: favoritesButton.topAnchor, constant: -50),
             
             favoritesButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 150),
             favoritesButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -150),
@@ -160,14 +175,17 @@ class LandingViewController: UIViewController {
     
     private func searchByCity(city: String) {
         viewModel.searchByCity(city: city)
+        favoriteButtonSetup()
     }
     
     @objc private func favoritesPressed() {
         viewModel.onTapFavoriteBarButton()
+        favoriteButtonSetup()
     }
     
     @objc private func locationSearchPressed() {
         locationManager.requestLocation()
+        favoriteButtonSetup()
     }
     
     @objc private func forecastButtonPressed() {

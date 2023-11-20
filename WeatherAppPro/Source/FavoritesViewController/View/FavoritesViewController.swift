@@ -81,7 +81,7 @@ extension FavoritesViewController: UITableViewDataSource {
 
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didTapCell?(favorites[indexPath.row])
         navigationController?.popViewController(animated: true)
+        didTapCell?(favorites[indexPath.row])
     }
 }
