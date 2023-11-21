@@ -13,9 +13,11 @@ struct ForecastResponse: Decodable {
     struct List: Decodable {
         let main: Main
         let weather: [Weather]
+        let wind: Wind
     }
 
     struct Main: Decodable {
+        let temp: Float
         let temp_min: Float
         let temp_max: Float
         let pressure: Int?
@@ -27,8 +29,15 @@ struct ForecastResponse: Decodable {
         let description: String
         let icon: String
     }
+    
+    struct Wind: Decodable {
+        let speed: Float
+    }
 
     struct City: Decodable {
         let name: String
+        let country: String
+        let sunrise: Int
+        let sunset: Int
     }
 }

@@ -1,12 +1,66 @@
 import Foundation
 
+enum WeatherType {
+    case hot
+    case warm
+    case mild
+    case cold
+    case freezing
+}
+
 struct WeatherModel {
     let cityName: String
+    let country: String
+    let date: Date
     let temperature: Float
+    let maxTemperature: Float
+    let minTemperature: Float
     let icon: String
+    let description: String
+    let sunrise: Int
+    let sunset: Int
+    let pressure: Int
+    let windSpeed: Float
+    
+    var sunriseString: String {
+        return Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
+    }
+    
+    var sunsetString: String {
+        return Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+    }
     
     var temperatureString: String {
-        String(format: "%.1f", temperature) + "°C"
+        String(format: "%.0f", temperature) + "°"
+    }
+    
+    var maxtemperatureString: String {
+        String(format: "%.0f", maxTemperature) + "°"
+    }
+    
+    var mintemperatureString: String {
+        String(format: "%.0f", minTemperature) + "°"
+    }
+    
+    var windSpeedString: String {
+        String(format: "%.0f", windSpeed) + "km/h"
+    }
+    
+    var weatherType: WeatherType {
+        switch temperature {
+        case 30... :
+            return .hot
+        case 20...30 :
+            return .warm
+        case 10...20 :
+            return .mild
+        case 0...10 :
+            return .cold
+        case ...0 :
+            return .freezing
+        default:
+            return .mild
+        }
     }
     
     var systemIcon: String {

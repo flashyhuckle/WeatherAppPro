@@ -4,7 +4,11 @@ final class LandingViewModel {
     
     private let didTapForecastButton: ((_ city: String) -> Void)?
     private let didTapFavoritesButton: ((((String) -> Void)?) -> Void)?
-    private var currentCity: String
+    private var currentCity: String {
+        didSet {
+            didChangeCity?(checkIfFavorite())
+        }
+    }
     private let apiManager: ApiManagerInterface
 //    private let userDefaults = UserDefaults.standard
     private var favoriteCities: Set<String>
@@ -30,13 +34,11 @@ final class LandingViewModel {
     }
     
     var didReceiveData: (([WeatherModel]) -> Void)?
+    var didChangeCity: ((Bool) -> Void)?
     
     func viewDidLoad() {
         searchByCity(city: currentCity)
-    }
-    
-    func viewWillAppear() {
-        searchByCity(city: currentCity)
+        
     }
     
     func searchByCity(city: String) {
@@ -68,7 +70,6 @@ final class LandingViewModel {
     }
     
     func onTapFavoriteBarButton() {
-//        guard var favorites = userDefaults.array(forKey: "favorites") as? [String] else { return }
         if checkIfFavorite() {
             favoriteCities.remove(currentCity)
             save()
@@ -76,6 +77,7 @@ final class LandingViewModel {
             favoriteCities.insert(currentCity.capitalized(with: nil))
             save()
         }
+        didChangeCity?(checkIfFavorite())
     }
     
     private func save() {

@@ -29,7 +29,7 @@ final class LandingCoordinator: CoordinatorType {
     
     //MARK: Start
     func start() {
-        let landingViewController = screens.createLandingViewController(currentCity: "paris") { [ weak self ] city in
+        let landingViewController = screens.createLandingViewController(currentCity: "warsaw") { [ weak self ] city in
             guard let self = self else { return }
             self.forecastCoordinator = ForecastCoordinator(presenter: self.navigationController, city: city)
             self.forecastCoordinator?.start()

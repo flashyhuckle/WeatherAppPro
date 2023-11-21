@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A4648E75299ABCDE00E99698 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648E74299ABCDE00E99698 /* ForecastResponse.swift */; };
+		A475DC6F2B0D01A500CC28C3 /* DateAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */; };
+		A475DC722B0D01BD00CC28C3 /* MainWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC712B0D01BC00CC28C3 /* MainWeatherView.swift */; };
+		A475DC742B0D01C600CC28C3 /* DetailWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC732B0D01C600CC28C3 /* DetailWeatherView.swift */; };
+		A475DC762B0D29E000CC28C3 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC752B0D29E000CC28C3 /* Constants.swift */; };
 		A4A607AA294BA53700C29FFB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A607A9294BA53700C29FFB /* AppDelegate.swift */; };
 		A4A607AC294BA53700C29FFB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A607AB294BA53700C29FFB /* SceneDelegate.swift */; };
 		A4A607B3294BA53800C29FFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4A607B2294BA53800C29FFB /* Assets.xcassets */; };
@@ -51,6 +55,10 @@
 
 /* Begin PBXFileReference section */
 		A4648E74299ABCDE00E99698 /* ForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastResponse.swift; sourceTree = "<group>"; };
+		A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndLocationView.swift; sourceTree = "<group>"; };
+		A475DC712B0D01BC00CC28C3 /* MainWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherView.swift; sourceTree = "<group>"; };
+		A475DC732B0D01C600CC28C3 /* DetailWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailWeatherView.swift; sourceTree = "<group>"; };
+		A475DC752B0D29E000CC28C3 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A4A607A6294BA53700C29FFB /* WeatherAppPro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppPro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A607A9294BA53700C29FFB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4A607AB294BA53700C29FFB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +120,16 @@
 				A4DA631A29AFD5B900579C86 /* WeatherModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A475DC702B0D01AB00CC28C3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */,
+				A475DC712B0D01BC00CC28C3 /* MainWeatherView.swift */,
+				A475DC732B0D01C600CC28C3 /* DetailWeatherView.swift */,
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		A4A6079D294BA53600C29FFB = {
@@ -177,6 +195,7 @@
 			children = (
 				A4A607A9294BA53700C29FFB /* AppDelegate.swift */,
 				A4A607AB294BA53700C29FFB /* SceneDelegate.swift */,
+				A475DC752B0D29E000CC28C3 /* Constants.swift */,
 				A4A607DC294BBC4000C29FFB /* LandingViewController */,
 				A4DA631E29B11DFD00579C86 /* FavoritesViewController */,
 				A4DA632129B11E2700579C86 /* ForecastViewController */,
@@ -199,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A607DD294BBC9D00C29FFB /* LandingViewController.swift */,
+				A475DC702B0D01AB00CC28C3 /* Subviews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -385,7 +405,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1420;
-				LastUpgradeCheck = 1420;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					A4A607A5294BA53700C29FFB = {
 						CreatedOnToolsVersion = 14.2;
@@ -452,17 +472,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				A4648E75299ABCDE00E99698 /* ForecastResponse.swift in Sources */,
+				A475DC762B0D29E000CC28C3 /* Constants.swift in Sources */,
 				A4A607E8294BBFE800C29FFB /* LandingCoordinator.swift in Sources */,
 				A4A64B1A29B289F000FD9918 /* CurrentResponse.swift in Sources */,
 				A4DA633129B11F0700579C86 /* ForecastScreens.swift in Sources */,
 				A4A607AA294BA53700C29FFB /* AppDelegate.swift in Sources */,
 				A4DA632B29B11EE700579C86 /* FavoritesScreens.swift in Sources */,
+				A475DC742B0D01C600CC28C3 /* DetailWeatherView.swift in Sources */,
 				A4DA633329B11F0E00579C86 /* ForecastViewModel.swift in Sources */,
 				A4A607E6294BBFDA00C29FFB /* LandingViewModel.swift in Sources */,
+				A475DC722B0D01BD00CC28C3 /* MainWeatherView.swift in Sources */,
 				A4DA631B29AFD5B900579C86 /* WeatherModel.swift in Sources */,
 				A4A607DE294BBC9D00C29FFB /* LandingViewController.swift in Sources */,
 				A4A607AC294BA53700C29FFB /* SceneDelegate.swift in Sources */,
 				A4DA632F29B11EFE00579C86 /* FavoritesCoordinator.swift in Sources */,
+				A475DC6F2B0D01A500CC28C3 /* DateAndLocationView.swift in Sources */,
 				A4DA633529B11F1600579C86 /* ForecastCoordinator.swift in Sources */,
 				A4A607E4294BBFC900C29FFB /* LandingScreens.swift in Sources */,
 				A4DA631D29B11DEB00579C86 /* FavoritesViewController.swift in Sources */,
@@ -552,6 +576,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -612,6 +637,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

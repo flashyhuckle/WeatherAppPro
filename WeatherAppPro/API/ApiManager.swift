@@ -56,6 +56,7 @@ struct ApiManager: ApiManagerInterface {
         forecast: Bool,
         onCompletion: @escaping ((Swift.Result<[WeatherModel], Error>) -> Void)
     ) {
+//        print(urlString)
         if let url = URL(string: urlString) {
             let session = URLSession(configuration: .default)
             let task = session.dataTask(with: url) { data, response, error in
@@ -66,9 +67,18 @@ struct ApiManager: ApiManagerInterface {
                             var weather = [WeatherModel]()
                             for i in 0..<decodedData.cnt {
                                 let cityName = decodedData.city.name
-                                let temperature = decodedData.list[i].main.temp_max
+                                let temperature = decodedData.list[i].main.temp
+                                let maxTemperature = decodedData.list[i].main.temp_max
+                                let minTemperature = decodedData.list[i].main.temp_min
                                 let icon = decodedData.list[i].weather[0].icon
-                                weather.append(WeatherModel(cityName: cityName, temperature: temperature, icon: icon))
+                                let country = decodedData.city.country
+                                let date = Date()
+                                let description = decodedData.list[i].weather[0].description
+                                let sunrise = decodedData.city.sunrise
+                                let sunset = decodedData.city.sunset
+                                let pressure = decodedData.list[i].main.pressure ?? 0
+                                let windSpeed = decodedData.list[i].wind.speed
+                                weather.append(WeatherModel(cityName: cityName, country: country, date: date, temperature: temperature, maxTemperature: maxTemperature, minTemperature: minTemperature, icon: icon, description: description, sunrise: sunrise, sunset: sunset, pressure: pressure, windSpeed: windSpeed))
                             }
     
                             DispatchQueue.main.async {
@@ -78,8 +88,17 @@ struct ApiManager: ApiManagerInterface {
                             let decodedData = try JSONDecoder().decode(CurrentResponse.self, from: data)
                             let cityName = decodedData.name
                             let temperature = decodedData.main.temp
+                            let maxTemperature = decodedData.main.temp_max
+                            let minTemperature = decodedData.main.temp_min
                             let icon = decodedData.weather[0].icon
-                            let weather = [WeatherModel(cityName: cityName, temperature: temperature, icon: icon)]
+                            let country = decodedData.sys.country
+                            let date = Date()
+                            let description = decodedData.weather[0].description
+                            let sunrise = decodedData.sys.sunrise
+                            let sunset = decodedData.sys.sunset
+                            let pressure = decodedData.main.pressure
+                            let windSpeed = decodedData.wind.speed
+                            let weather = [WeatherModel(cityName: cityName, country: country, date: date, temperature: temperature,maxTemperature: maxTemperature, minTemperature: minTemperature, icon: icon, description: description, sunrise: sunrise, sunset: sunset, pressure: pressure, windSpeed: windSpeed)]
                             
                             DispatchQueue.main.async {
                                 onCompletion(.success(weather))
