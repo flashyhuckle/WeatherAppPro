@@ -4,13 +4,16 @@ final class ForecastViewModel {
     
     private let city: String
     private let apiManager: ApiManagerInterface
+    let weatherType: WeatherType?
     
     init(
         city: String,
-        apiManager: ApiManagerInterface
+        apiManager: ApiManagerInterface,
+        weatherType: WeatherType?
     ) {
         self.city = city
         self.apiManager = apiManager
+        self.weatherType = weatherType
     }
     
     var didReceiveData: (([WeatherModel]) -> Void)?
@@ -27,6 +30,4 @@ final class ForecastViewModel {
             }
         }
     }
-    
-    
 }

@@ -72,7 +72,7 @@ struct ApiManager: ApiManagerInterface {
                                 let minTemperature = decodedData.list[i].main.temp_min
                                 let icon = decodedData.list[i].weather[0].icon
                                 let country = decodedData.city.country
-                                let date = Date()
+                                let date = Date(timeInterval: TimeInterval(((i+1) * 86400)), since: Date())
                                 let description = decodedData.list[i].weather[0].description
                                 let sunrise = decodedData.city.sunrise
                                 let sunset = decodedData.city.sunset

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A4593C5A2B0DE9320023362E /* DetailForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4593C592B0DE9320023362E /* DetailForecastView.swift */; };
 		A4648E75299ABCDE00E99698 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648E74299ABCDE00E99698 /* ForecastResponse.swift */; };
 		A475DC6F2B0D01A500CC28C3 /* DateAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */; };
 		A475DC722B0D01BD00CC28C3 /* MainWeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC712B0D01BC00CC28C3 /* MainWeatherView.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A4593C592B0DE9320023362E /* DetailForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailForecastView.swift; sourceTree = "<group>"; };
 		A4648E74299ABCDE00E99698 /* ForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastResponse.swift; sourceTree = "<group>"; };
 		A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndLocationView.swift; sourceTree = "<group>"; };
 		A475DC712B0D01BC00CC28C3 /* MainWeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeatherView.swift; sourceTree = "<group>"; };
@@ -112,6 +114,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A4593C5B2B0DE9370023362E /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				A4593C592B0DE9320023362E /* DetailForecastView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		A4648E76299ABD2A00E99698 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,6 +299,7 @@
 			isa = PBXGroup;
 			children = (
 				A4DA631F29B11E2200579C86 /* ForecastViewController.swift */,
+				A4593C5B2B0DE9370023362E /* Subviews */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -474,6 +485,7 @@
 				A4648E75299ABCDE00E99698 /* ForecastResponse.swift in Sources */,
 				A475DC762B0D29E000CC28C3 /* Constants.swift in Sources */,
 				A4A607E8294BBFE800C29FFB /* LandingCoordinator.swift in Sources */,
+				A4593C5A2B0DE9320023362E /* DetailForecastView.swift in Sources */,
 				A4A64B1A29B289F000FD9918 /* CurrentResponse.swift in Sources */,
 				A4DA633129B11F0700579C86 /* ForecastScreens.swift in Sources */,
 				A4A607AA294BA53700C29FFB /* AppDelegate.swift in Sources */,

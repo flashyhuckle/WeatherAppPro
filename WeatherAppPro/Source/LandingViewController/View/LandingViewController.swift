@@ -165,7 +165,7 @@ class LandingViewController: UIViewController {
                 maxTemp: weather[0].maxtemperatureString,
                 minTemp: weather[0].mintemperatureString,
                 windSpeed: weather[0].windSpeedString,
-                pressure: "\(weather[0].pressure)",
+                pressure: weather[0].pressureString,
                 sunrise: weather[0].sunriseString,
                 sunset: weather[0].sunsetString
             )

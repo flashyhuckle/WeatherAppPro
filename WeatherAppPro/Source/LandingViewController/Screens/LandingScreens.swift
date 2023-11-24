@@ -3,8 +3,8 @@ import UIKit
 struct LandingScreens {
     func createLandingViewController(
         currentCity: String,
-        didTapForecastButton: ((_ city: String) -> Void)?,
-        didTapFavoritesButton: ((((String) -> Void)?) -> Void)?
+        didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?,
+        didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?
     ) -> UIViewController {
         let viewModel = LandingViewModel(
             didTapForecastButton: didTapForecastButton,

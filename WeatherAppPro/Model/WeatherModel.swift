@@ -42,6 +42,10 @@ struct WeatherModel {
         String(format: "%.0f", minTemperature) + "°"
     }
     
+    var pressureString: String {
+        return String(pressure) + "hPa"
+    }
+    
     var windSpeedString: String {
         String(format: "%.0f", windSpeed) + "km/h"
     }

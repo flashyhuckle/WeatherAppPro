@@ -2,20 +2,21 @@ import Foundation
 
 final class LandingViewModel {
     
-    private let didTapForecastButton: ((_ city: String) -> Void)?
-    private let didTapFavoritesButton: ((((String) -> Void)?) -> Void)?
+    private let didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?
+    private let didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?
     private var currentCity: String {
         didSet {
             didChangeCity?(checkIfFavorite())
         }
     }
+    private var weatherType: WeatherType?
     private let apiManager: ApiManagerInterface
 //    private let userDefaults = UserDefaults.standard
     private var favoriteCities: Set<String>
     
     init(
-        didTapForecastButton: ((_ city: String) -> Void)?,
-        didTapFavoritesButton: ((((String) -> Void)?) -> Void)?,
+        didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?,
+        didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?,
         apiManager: ApiManagerInterface,
         currentCity: String
         
@@ -38,7 +39,6 @@ final class LandingViewModel {
     
     func viewDidLoad() {
         searchByCity(city: currentCity)
-        
     }
     
     func searchByCity(city: String) {
@@ -48,6 +48,7 @@ final class LandingViewModel {
             case .success(let weather):
                 guard let self else { return }
                 self.didReceiveData?(weather)
+                self.weatherType = weather[0].weatherType
 
             case .failure(let error):
                 print("ERROR: \(error)")
@@ -62,7 +63,7 @@ final class LandingViewModel {
                 guard let self else { return }
                 self.didReceiveData?(weather)
                 self.currentCity = weather[0].cityName
-
+                self.weatherType = weather[0].weatherType
             case .failure(let error):
                 print("ERROR: \(error)")
             }
@@ -94,11 +95,11 @@ final class LandingViewModel {
     }
 
     func onTapForecastButton() {
-        didTapForecastButton?(currentCity)
+        didTapForecastButton?(currentCity, weatherType)
     }
     
     func onTapFavoritesButton() {
-        didTapFavoritesButton?(refresh)
+        didTapFavoritesButton?(refresh, weatherType)
     }
 
     func refresh(with cityName: String) {
