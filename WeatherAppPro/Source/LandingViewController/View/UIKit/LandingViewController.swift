@@ -1,15 +1,13 @@
 import UIKit
-import CoreLocation
+import SwiftUI
 
 
 class LandingViewController: UIViewController {
     
     //MARK: Properties
     private let viewModel: LandingViewModel
-    private let locationManager = CLLocationManager()
     
     //MARK: Views
-    
     private let dateAndLocationView = DateAndLocationView()
     private let mainWeatherView = MainWeatherView()
     private let detailWeatherView = DetailWeatherView()
@@ -50,73 +48,27 @@ class LandingViewController: UIViewController {
         return button
     }()
     
-//    private let cityLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "CITY NAME"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont(name: "Avenir-Light", size: 50.0)
-//        label.textColor = .white
-//        label.textAlignment = .right
-//        label.layer.borderWidth = 1
-//        label.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
-//        return label
-//    }()
-    
-//    private let dateLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "DATE"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont(name: "Avenir-Light", size: 15.0)
-//        label.textColor = .white
-//        label.textAlignment = .right
-//        label.layer.borderWidth = 1
-//        label.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
-//        return label
-//    }()
-    
-//    private let temperatureLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "25oC"
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.font = UIFont(name: "Avenir-Light", size: 100.0)
-//        label.textColor = .white
-//        label.textAlignment = .right
-//        label.layer.borderWidth = 1
-//        label.layer.borderColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
-//        return label
-//    }()
-    
-//    private let weatherImageView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.image = UIImage(systemName: "sun.max")
-//        imageView.preferredSymbolConfiguration = UIImage.SymbolConfiguration(paletteColors: [.white])
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.contentMode = .scaleAspectFit
-//        
-//        imageView.layer.borderWidth = 1
-//        imageView.layer.borderColor = .init(red: 1, green: 1, blue: 1, alpha: 1)
-//        return imageView
-//    }()
-    
     private lazy var forecastButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("5 day forecast", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = LandingViewButton()
+        button.title = "5 day forecast"
         button.addTarget(self, action: #selector(forecastButtonPressed), for: .touchUpInside)
-        button.setTitleColor(Constants.fontColor, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var favoritesButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("favorite cities", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
+        let button = LandingViewButton()
+        button.title = "favorite cities"
         button.addTarget(self, action: #selector(favoritesButtonPressed), for: .touchUpInside)
-        button.setTitleColor(Constants.fontColor, for: .normal)
-        button.layer.borderWidth = 1
-        button.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var swiftUIButton: UIButton = {
+        let button = LandingViewButton()
+        button.title = "swiftUI"
+        button.addTarget(self, action: #selector(swiftUIButtonPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -137,22 +89,12 @@ class LandingViewController: UIViewController {
         setUpConstraints()
         
         searchBar.delegate = self
-        locationManager.delegate = self
-        
-        locationManager.requestWhenInUseAuthorization()
         
         viewModel.didReceiveData = { [ weak self ] weather in
             self?.setGradientBackground(weather[0].weatherType)
-            self?.locationManager.stopUpdatingLocation()
-            
-//            self?.cityLabel.text = weather[0].cityName + ", " + weather[0].country
-//            self?.temperatureLabel.text = weather[0].temperatureString
-//            self?.dateLabel.text = "\(weather[0].date.formatted(Date.FormatStyle().weekday(.wide).month(.wide).day(.twoDigits)))"
-//            self?.weatherImageView.image = UIImage(systemName: "\(weather[0].systemIcon)")
-            
             self?.dateAndLocationView.setDateAndLocation(
-                date: "\(weather[0].date.formatted(Date.FormatStyle().weekday(.wide).month(.wide).day(.twoDigits)))",
-                location: weather[0].cityName + ", " + weather[0].country
+                date: weather[0].dateString,
+                location: weather[0].locationString
             )
             
             self?.mainWeatherView.setMainWeatherView(
@@ -191,10 +133,7 @@ class LandingViewController: UIViewController {
         view.addSubview(searchBar)
         view.addSubview(forecastButton)
         view.addSubview(favoritesButton)
-//        view.addSubview(cityLabel)
-//        view.addSubview(dateLabel)
-//        view.addSubview(temperatureLabel)
-//        view.addSubview(weatherImageView)
+        view.addSubview(swiftUIButton)
         
         view.addSubview(dateAndLocationView)
         view.addSubview(mainWeatherView)
@@ -208,33 +147,13 @@ class LandingViewController: UIViewController {
             searchBar.heightAnchor.constraint(equalToConstant: 50),
             searchBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
             
-//            temperatureLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-//            temperatureLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
-//            temperatureLabel.heightAnchor.constraint(equalToConstant: 100),
-            
-//            cityLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            cityLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-//            cityLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: 10),
-//            cityLabel.heightAnchor.constraint(equalToConstant: 50),
-//            
-//            dateLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-//            dateLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 10),
-//            dateLabel.heightAnchor.constraint(equalToConstant: 50),
-//            dateLabel.widthAnchor.constraint(equalToConstant: 200),
-            
-//            weatherImageView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-//            weatherImageView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 150),
-//            weatherImageView.heightAnchor.constraint(equalToConstant: 150),
-//            weatherImageView.widthAnchor.constraint(equalToConstant: 150),
-            
             forecastButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            forecastButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 600),
+            forecastButton.topAnchor.constraint(equalTo: detailWeatherView.bottomAnchor, constant: 20),
             forecastButton.heightAnchor.constraint(equalToConstant: 50),
             forecastButton.widthAnchor.constraint(equalToConstant: 150),
             
             favoritesButton.leadingAnchor.constraint(equalTo: forecastButton.trailingAnchor, constant: 50),
-            favoritesButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 600),
+            favoritesButton.topAnchor.constraint(equalTo: detailWeatherView.bottomAnchor, constant: 20),
             favoritesButton.heightAnchor.constraint(equalToConstant: 50),
             favoritesButton.widthAnchor.constraint(equalToConstant: 150),
             
@@ -252,6 +171,11 @@ class LandingViewController: UIViewController {
             detailWeatherView.topAnchor.constraint(equalTo: mainWeatherView.bottomAnchor, constant: 10),
             detailWeatherView.heightAnchor.constraint(equalToConstant: 170),
             detailWeatherView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            
+            swiftUIButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            swiftUIButton.topAnchor.constraint(equalTo: forecastButton.bottomAnchor, constant: 10),
+            swiftUIButton.heightAnchor.constraint(equalToConstant: 50),
+            swiftUIButton.widthAnchor.constraint(equalToConstant: 150)
         ])
     }
     
@@ -295,7 +219,7 @@ class LandingViewController: UIViewController {
     }
     
     @objc private func locationSearchPressed() {
-        locationManager.requestLocation()
+        viewModel.onTapLocationButton()
     }
     
     @objc private func forecastButtonPressed() {
@@ -304,6 +228,10 @@ class LandingViewController: UIViewController {
     
     @objc private func favoritesButtonPressed() {
         viewModel.onTapFavoritesButton()
+    }
+    
+    @objc private func swiftUIButtonPressed() {
+        viewModel.swiftUIButtonPressed()
     }
 }
 
@@ -317,19 +245,5 @@ extension LandingViewController: UISearchBarDelegate {
     }
 }
 
-//MARK: LocationManager delegate
 
-extension LandingViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            locationManager.stopUpdatingLocation()
-            let lat = Double(location.coordinate.latitude)
-            let lon = Double(location.coordinate.longitude)
-            viewModel.onTapLocationSearchButton(lat: lat, lon: lon)
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
-    }
-}
+

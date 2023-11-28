@@ -23,11 +23,19 @@ struct WeatherModel {
     let windSpeed: Float
     
     var sunriseString: String {
-        return Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
+        Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
     }
     
     var sunsetString: String {
-        return Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+        Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+    }
+    
+    var dateString: String {
+        date.formatted(Date.FormatStyle().weekday(.wide).month(.wide).day(.twoDigits))
+    }
+    
+    var locationString: String {
+        cityName + ", " + country
     }
     
     var temperatureString: String {

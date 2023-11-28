@@ -40,7 +40,7 @@ class MainWeatherView: UIView {
         let label = UILabel()
         label.text = "Mild rain"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Light", size: 20.0)
+        label.font = UIFont(name: "Avenir-Light", size: 30.0)
         label.textColor = .white
         label.textAlignment = .center
         if Constants.showingViewBorders {

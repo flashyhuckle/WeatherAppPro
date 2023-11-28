@@ -5,11 +5,6 @@ struct ForecastResponse: Decodable {
     let city: City
     let cnt: Int
 
-//    private enum CodingKeys: String, CodingKey {
-//        case lists = "list"
-//        case city
-//    }
-
     struct List: Decodable {
         let main: Main
         let weather: [Weather]

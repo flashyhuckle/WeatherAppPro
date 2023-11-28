@@ -14,8 +14,8 @@
             filePath = "WeatherAppPro/Source/LandingViewController/ViewModel/LandingViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "9"
-            endingLineNumber = "9"
+            startingLineNumber = "10"
+            endingLineNumber = "10"
             landmarkName = "currentCity"
             landmarkType = "24">
          </BreakpointContent>
@@ -30,10 +30,58 @@
             filePath = "WeatherAppPro/Source/LandingViewController/View/LandingViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
             landmarkName = "setGradientBackground(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7B655205-6199-4B63-84B7-C6ABF3153E65"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WeatherAppPro/Source/LandingViewController/View/SwiftUI/LandingVCSUI.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "7B655205-6199-4B63-84B7-C6ABF3153E65 - 7bb60cb79bbec516"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;WeatherAppPro.WeatherModel&gt;) -&gt; () in closure #4 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in WeatherAppPro.LandingVCSUI.body.getter : some"
+                  moduleName = "WeatherAppPro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinglodzik/Desktop/Projekty%20iOS/WeatherAppPro/WeatherAppPro/Source/LandingViewController/View/SwiftUI/LandingVCSUI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "940">
+               </Location>
+               <Location
+                  uuid = "7B655205-6199-4B63-84B7-C6ABF3153E65 - 7bb60cb79bbec516"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Array&lt;WeatherAppPro.WeatherModel&gt;) -&gt; () in closure #4 () -&gt; () in closure #1 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in WeatherAppPro.LandingVCSUI.body.getter : some"
+                  moduleName = "WeatherAppPro"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcinglodzik/Desktop/Projekty%20iOS/WeatherAppPro/WeatherAppPro/Source/LandingViewController/View/SwiftUI/LandingVCSUI.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "63"
+                  endingLineNumber = "63"
+                  offsetFromSymbolStart = "556">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

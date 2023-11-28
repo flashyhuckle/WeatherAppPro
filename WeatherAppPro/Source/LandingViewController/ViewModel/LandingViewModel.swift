@@ -1,9 +1,10 @@
-import Foundation
+import SwiftUI
 
 final class LandingViewModel {
     
     private let didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?
     private let didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?
+    private let didTapSwiftUIButton: ((LandingViewModel) -> Void)?
     private var currentCity: String {
         didSet {
             didChangeCity?(checkIfFavorite())
@@ -11,19 +12,25 @@ final class LandingViewModel {
     }
     private var weatherType: WeatherType?
     private let apiManager: ApiManagerInterface
-//    private let userDefaults = UserDefaults.standard
     private var favoriteCities: Set<String>
+    private var locationManager: LocationManager
+    
+    var currentWeather: WeatherModel?
     
     init(
         didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?,
         didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?,
+        didTapSwiftUIButton: ((LandingViewModel) -> Void)?,
         apiManager: ApiManagerInterface,
+        locationManager: LocationManager,
         currentCity: String
         
     ) {
         self.didTapForecastButton = didTapForecastButton
         self.didTapFavoritesButton = didTapFavoritesButton
+        self.didTapSwiftUIButton = didTapSwiftUIButton
         self.apiManager = apiManager
+        self.locationManager = locationManager
         self.currentCity = currentCity
         
         if let defaults = UserDefaults.standard.object(forKey: "favorites") as? [String] {
@@ -42,6 +49,13 @@ final class LandingViewModel {
     }
     
     func searchByCity(city: String) {
+        if city == currentCity {
+            if let currentWeather = currentWeather {
+                didReceiveData?([currentWeather])
+                return
+            }
+        }
+        
         currentCity = city
         apiManager.fetchWeather(city: currentCity, forecast: false) { [ weak self ] result in
             switch result {
@@ -49,11 +63,20 @@ final class LandingViewModel {
                 guard let self else { return }
                 self.didReceiveData?(weather)
                 self.weatherType = weather[0].weatherType
+                self.currentWeather = weather[0]
 
             case .failure(let error):
                 print("ERROR: \(error)")
             }
         }
+    }
+    
+    func onTapLocationButton() {
+        locationManager.didReceiveLocation = { location in
+            self.onTapLocationSearchButton(lat: location.latitude, lon: location.longitude)
+        }
+        
+        locationManager.requestLocation()
     }
     
     func onTapLocationSearchButton(lat: Double, lon: Double) {
@@ -64,6 +87,7 @@ final class LandingViewModel {
                 self.didReceiveData?(weather)
                 self.currentCity = weather[0].cityName
                 self.weatherType = weather[0].weatherType
+                self.currentWeather = weather[0]
             case .failure(let error):
                 print("ERROR: \(error)")
             }
@@ -102,7 +126,18 @@ final class LandingViewModel {
         didTapFavoritesButton?(refresh, weatherType)
     }
 
-    func refresh(with cityName: String) {
+    private func refresh(with cityName: String) {
         searchByCity(city: cityName)
+    }
+    
+    func swiftUIButtonPressed() {
+        didTapSwiftUIButton?(self)
+//        let view = UIHostingController(rootView: LandingVCSUI(viewModel: self))
+//        view.rootView.dismiss = {
+//            let landing = LandingCoordinator(presenter: self.presenter!)
+//            landing.start()
+//        }
+//        presenter?.rootViewController = view
+//        presenter?.makeKeyAndVisible()
     }
 }

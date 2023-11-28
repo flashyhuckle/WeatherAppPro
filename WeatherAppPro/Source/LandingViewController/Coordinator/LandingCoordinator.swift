@@ -1,4 +1,5 @@
 import UIKit
+import SwiftUI
 
 protocol CoordinatorType {
     func start()
@@ -39,14 +40,20 @@ final class LandingCoordinator: CoordinatorType {
             )
             self.forecastCoordinator?.start()
         } didTapFavoritesButton: { didTapCell, weatherType  in
-            //            ((() -> Void) -> Void)?
-//            self.favoritesCoordinator = FavoritesCoordinator(presenter: self.navigationController, didTapCell: self.test(str:))
             self.favoritesCoordinator = FavoritesCoordinator(
                 presenter: self.navigationController,
                 didTapCell: didTapCell,
                 weatherType: weatherType
             )
             self.favoritesCoordinator?.start()
+        } didTapSwiftUIButton: { viewModel in
+            let view = UIHostingController(rootView: LandingVCSUI(viewModel: viewModel))
+                    view.rootView.dismiss = {
+                        let landing = LandingCoordinator(presenter: self.presenter)
+                        landing.start()
+                    }
+            self.presenter.rootViewController = view
+            self.presenter.makeKeyAndVisible()
         }
         
         navigationController.viewControllers = [landingViewController]

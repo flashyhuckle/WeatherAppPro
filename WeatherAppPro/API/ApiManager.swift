@@ -66,19 +66,32 @@ struct ApiManager: ApiManagerInterface {
                             let decodedData = try JSONDecoder().decode(ForecastResponse.self, from: data)
                             var weather = [WeatherModel]()
                             for i in 0..<decodedData.cnt {
-                                let cityName = decodedData.city.name
-                                let temperature = decodedData.list[i].main.temp
-                                let maxTemperature = decodedData.list[i].main.temp_max
-                                let minTemperature = decodedData.list[i].main.temp_min
-                                let icon = decodedData.list[i].weather[0].icon
-                                let country = decodedData.city.country
-                                let date = Date(timeInterval: TimeInterval(((i+1) * 86400)), since: Date())
-                                let description = decodedData.list[i].weather[0].description
-                                let sunrise = decodedData.city.sunrise
-                                let sunset = decodedData.city.sunset
-                                let pressure = decodedData.list[i].main.pressure ?? 0
-                                let windSpeed = decodedData.list[i].wind.speed
-                                weather.append(WeatherModel(cityName: cityName, country: country, date: date, temperature: temperature, maxTemperature: maxTemperature, minTemperature: minTemperature, icon: icon, description: description, sunrise: sunrise, sunset: sunset, pressure: pressure, windSpeed: windSpeed))
+//                                let cityName = decodedData.city.name
+//                                let temperature = decodedData.list[i].main.temp
+//                                let maxTemperature = decodedData.list[i].main.temp_max
+//                                let minTemperature = decodedData.list[i].main.temp_min
+//                                let icon = decodedData.list[i].weather[0].icon
+//                                let country = decodedData.city.country
+//                                let date = Date(timeInterval: TimeInterval(((i+1) * 86400)), since: Date())
+//                                let description = decodedData.list[i].weather[0].description
+//                                let sunrise = decodedData.city.sunrise
+//                                let sunset = decodedData.city.sunset
+//                                let pressure = decodedData.list[i].main.pressure ?? 0
+//                                let windSpeed = decodedData.list[i].wind.speed
+                                weather.append(WeatherModel(
+                                    cityName: decodedData.city.name,
+                                    country: decodedData.city.country,
+                                    date: Date(timeInterval: TimeInterval(((i+1) * 86400)), since: Date()),
+                                    temperature: decodedData.list[i].main.temp,
+                                    maxTemperature: decodedData.list[i].main.temp_max,
+                                    minTemperature: decodedData.list[i].main.temp_min,
+                                    icon: decodedData.list[i].weather[0].icon,
+                                    description: decodedData.list[i].weather[0].description,
+                                    sunrise: decodedData.city.sunrise,
+                                    sunset: decodedData.city.sunset,
+                                    pressure: decodedData.list[i].main.pressure ?? 0,
+                                    windSpeed: decodedData.list[i].wind.speed
+                                ))
                             }
     
                             DispatchQueue.main.async {
