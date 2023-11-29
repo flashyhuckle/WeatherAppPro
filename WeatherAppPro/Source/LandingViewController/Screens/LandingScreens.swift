@@ -1,24 +1,40 @@
 import UIKit
+import SwiftUI
 
 struct LandingScreens {
     func createLandingViewController(
-        currentCity: String,
-        didTapForecastButton: ((_ city: String, WeatherType?) -> Void)?,
-        didTapFavoritesButton: ((((String) -> Void)?, WeatherType?) -> Void)?,
-        didTapSwiftUIButton: ((LandingViewModel) -> Void)?
+        currentWeather: WeatherModel,
+        didTapForecastButton: ((WeatherModel) -> Void)?,
+        didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?,
+        didTapUIButton: ((LandingViewModel) -> Void)?
     ) -> UIViewController {
         let viewModel = LandingViewModel(
             didTapForecastButton: didTapForecastButton,
             didTapFavoritesButton: didTapFavoritesButton,
-            didTapSwiftUIButton: didTapSwiftUIButton,
+            didTapUIButton: didTapUIButton,
             apiManager: ApiManager(),
+            favoriteCities: Favorites(),
             locationManager: LocationManager(),
-            currentCity: currentCity
+            currentWeather: currentWeather
         )
         return LandingViewController(viewModel: viewModel)
     }
     
-    func createLandingVCSUI() {
-        
+    func createLandingVCSUI(
+        currentWeather: WeatherModel,
+        didTapForecastButton: ((WeatherModel) -> Void)?,
+        didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?,
+        didTapUIButton: ((LandingViewModel) -> Void)?
+    ) -> UIViewController {
+        let viewModel = LandingViewModel(
+            didTapForecastButton: didTapForecastButton,
+            didTapFavoritesButton: didTapFavoritesButton,
+            didTapUIButton: didTapUIButton,
+            apiManager: ApiManager(),
+            favoriteCities: Favorites(),
+            locationManager: LocationManager(),
+            currentWeather: currentWeather
+        )
+        return UIHostingController(rootView: LandingVCSUI(viewModel: viewModel, currentWeather: currentWeather))
     }
 }

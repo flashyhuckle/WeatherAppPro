@@ -1,36 +1,31 @@
-//
-//  FavoritesVCSUI.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 27/11/2023.
-//
-
 import SwiftUI
 
 struct FavoritesVCSUI: View {
     @Environment(\.dismiss) private var dismiss
     
-    @State var favorites: [String] = {
-        let userDefaults: UserDefaults = .standard
-        if let favorite = userDefaults.array(forKey: "favorites") as? [String] {
-            return favorite
-        } else {
-            return [String]()
-        }
-    }()
+    var didTapCell: ((String) -> Void)?
+    @State var viewModel: FavoritesViewModel
     
     var body: some View {
         List {
-            ForEach(favorites, id: \.self) {
-                Button($0) {
+            ForEach(viewModel.favorites.favoritesArray, id: \.self) { city in
+                Button(city) {
+                    self.didTapCell?(city)
                     self.dismiss()
                 }
             }
+            .onDelete(perform: deleteItems)
             .navigationTitle("Favorite cities")
+        }
+    }
+    func deleteItems(at offsets: IndexSet) {
+        if let number = offsets.first {
+            viewModel.favorites.buttonTapped(viewModel.favorites.favoritesArray[number])
+//            viewModel.favorites.favoritesArray.remove(atOffsets: offsets)
         }
     }
 }
 
-#Preview {
-    FavoritesVCSUI(favorites: ["london", "paris"])
-}
+//#Preview {
+//    FavoritesVCSUI(favorites: ["london", "paris"])
+//}

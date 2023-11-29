@@ -8,6 +8,8 @@
 import UIKit
 
 public class Constants {
-    static var showingViewBorders = false
-    static var fontColor = UIColor.white
+    static let showingViewBorders = false
+    static let fontColor = UIColor.white
+    static let baseCity = "Warsaw"
+    static let favoritesSaveKey = "favorites"
 }

@@ -6,40 +6,6 @@ class ForecastViewController: UIViewController {
     private let viewModel: ForecastViewModel
     
     //MARK: Views
-//    private let temperatureLabel1: UILabel = {
-//        let label = UILabel()
-//        label.text = ""
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//    
-//    private let temperatureLabel2: UILabel = {
-//        let label = UILabel()
-//        label.text = ""
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//    
-//    private let temperatureLabel3: UILabel = {
-//        let label = UILabel()
-//        label.text = ""
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//    
-//    private let temperatureLabel4: UILabel = {
-//        let label = UILabel()
-//        label.text = ""
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
-//    
-//    private let temperatureLabel5: UILabel = {
-//        let label = UILabel()
-//        label.text = ""
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }()
     
     private let detailForecastView1 = DetailForecastView()
     private let detailForecastView2 = DetailForecastView()
@@ -67,19 +33,14 @@ class ForecastViewController: UIViewController {
         setUpConstraints()
         
         viewModel.didReceiveData = { [ weak self ] weather in
-            self?.title = weather[0].cityName + ", " + weather[0].country
-//            self?.temperatureLabel1.text = weather[0].temperatureString
-//            self?.temperatureLabel2.text = weather[1].temperatureString
-//            self?.temperatureLabel3.text = weather[2].temperatureString
-//            self?.temperatureLabel4.text = weather[3].temperatureString
-//            self?.temperatureLabel5.text = weather[4].temperatureString
+            self?.title = weather[0].locationString
             for i in 0...4 {
                 self?.detailForecastArray[i].setUpData(
                     maxTemp: weather[i].maxtemperatureString,
                     minTemp: weather[i].mintemperatureString,
                     pressure: weather[i].pressureString,
                     wind: weather[i].windSpeedString,
-                    date: "\(weather[i].date.formatted(Date.FormatStyle().weekday(.wide)))",
+                    date: weather[i].shortDateString,
                     icon: weather[i].systemIcon
                     
                 )
@@ -87,16 +48,10 @@ class ForecastViewController: UIViewController {
         }
         viewModel.viewDidLoad()
         
-        setGradientBackground(viewModel.weatherType ?? .mild)
+        setGradientBackground(viewModel.currentWeather)
     }
     
     private func setUpViews() {
-        
-//        view.addSubview(temperatureLabel1)
-//        view.addSubview(temperatureLabel2)
-//        view.addSubview(temperatureLabel3)
-//        view.addSubview(temperatureLabel4)
-//        view.addSubview(temperatureLabel5)
         view.addSubview(detailForecastView1)
         view.addSubview(detailForecastView2)
         view.addSubview(detailForecastView3)
@@ -106,20 +61,6 @@ class ForecastViewController: UIViewController {
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-//            temperatureLabel1.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel1.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 100),
-//            
-//            temperatureLabel2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel2.topAnchor.constraint(equalTo: temperatureLabel1.bottomAnchor, constant: 10),
-//            
-//            temperatureLabel3.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel3.topAnchor.constraint(equalTo: temperatureLabel2.bottomAnchor, constant: 10),
-//            
-//            temperatureLabel4.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel4.topAnchor.constraint(equalTo: temperatureLabel3.bottomAnchor, constant: 10),
-//            
-//            temperatureLabel5.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            temperatureLabel5.topAnchor.constraint(equalTo: temperatureLabel4.bottomAnchor, constant: 10),
             
             detailForecastView1.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             detailForecastView1.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
@@ -148,11 +89,11 @@ class ForecastViewController: UIViewController {
         ])
     }
     
-    private func setGradientBackground(_ weatherType: WeatherType = .mild) {
+    private func setGradientBackground(_ weather: WeatherModel) {
         var colorTop =  UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         var colorBottom = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         
-        switch weatherType {
+        switch weather.weatherType {
         case .hot:
             colorTop = UIColor(red: 121.0/255.0, green: 4.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
             colorBottom = UIColor(red: 255.0/255.0, green: 91.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor

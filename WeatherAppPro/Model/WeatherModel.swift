@@ -10,56 +10,93 @@ enum WeatherType {
 
 struct WeatherModel {
     let cityName: String
-    let country: String
-    let date: Date
-    let temperature: Float
-    let maxTemperature: Float
-    let minTemperature: Float
-    let icon: String
-    let description: String
-    let sunrise: Int
-    let sunset: Int
-    let pressure: Int
-    let windSpeed: Float
+    let country: String?
+    let date: Date?
+    let temperature: Float?
+    let maxTemperature: Float?
+    let minTemperature: Float?
+    let icon: String?
+    let description: String?
+    let sunrise: Int?
+    let sunset: Int?
+    let pressure: Int?
+    let windSpeed: Float?
+    
+    var descriptionString: String {
+        if let description = description {
+            return description
+        } else {
+            return ""
+        }
+    }
     
     var sunriseString: String {
-        Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
+        if let sunrise = sunrise {
+            return Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
+        } else {
+            return ""
+        }
     }
     
     var sunsetString: String {
-        Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+        if let sunset = sunset {
+            return Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+        } else {
+            return ""
+        }
     }
     
     var dateString: String {
-        date.formatted(Date.FormatStyle().weekday(.wide).month(.wide).day(.twoDigits))
+        if let date = date {
+            return date.formatted(Date.FormatStyle().weekday(.wide).month(.wide).day(.twoDigits))
+        } else {
+            return ""
+        }
+    }
+    
+    var shortDateString: String {
+        if let date = date {
+            return date.formatted(Date.FormatStyle().month(.twoDigits).day(.twoDigits))
+        } else {
+            return ""
+        }
     }
     
     var locationString: String {
-        cityName + ", " + country
+        cityName + ", " + (country ?? "")
     }
     
     var temperatureString: String {
-        String(format: "%.0f", temperature) + "°"
+        getTemperatureString(from: temperature)
     }
     
     var maxtemperatureString: String {
-        String(format: "%.0f", maxTemperature) + "°"
+        getTemperatureString(from: maxTemperature)
     }
     
     var mintemperatureString: String {
-        String(format: "%.0f", minTemperature) + "°"
+        getTemperatureString(from: minTemperature)
+    }
+    
+    private func getTemperatureString(from temperature: Float?) -> String {
+        let temp = String(format: "%.0f", temperature ?? 0) + "°"
+        if temp == "-0°" {
+            return "0°"
+        } else {
+            return temp
+        }
     }
     
     var pressureString: String {
-        return String(pressure) + "hPa"
+        return String(pressure ?? 0) + "hPa"
     }
     
     var windSpeedString: String {
-        String(format: "%.0f", windSpeed) + "km/h"
+        String(format: "%.0f", windSpeed ?? 0) + "km/h"
     }
     
     var weatherType: WeatherType {
-        switch temperature {
+        switch temperature ?? 0 {
         case 30... :
             return .hot
         case 20...30 :
@@ -103,4 +140,19 @@ struct WeatherModel {
             return "sun.max.trianglebadge.exclamationmark"
         }
     }
+    
+    static let example = WeatherModel(
+        cityName: Constants.baseCity,
+        country: nil,
+        date: nil,
+        temperature: nil,
+        maxTemperature: nil,
+        minTemperature: nil,
+        icon: nil,
+        description: nil,
+        sunrise: nil,
+        sunset: nil,
+        pressure: nil,
+        windSpeed: nil
+    )
 }

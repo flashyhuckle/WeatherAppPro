@@ -4,10 +4,9 @@ class FavoritesViewController: UIViewController {
     
     //MARK: Properties
     let viewModel: FavoritesViewModel
-    private let userDefaults: UserDefaults = .standard
-    var favorites = [String]()
     let didTapCell: ((String) -> Void)?
-    var weatherType: WeatherType?
+//    var weatherType: WeatherType?
+    let currentWeather: WeatherModel
     
     //MARK: Views
     private lazy var tableView: UITableView = {
@@ -22,11 +21,13 @@ class FavoritesViewController: UIViewController {
     //MARK: Init
     init(viewModel: FavoritesViewModel,
          didTapCell: ((String) -> Void)?,
-         weatherType: WeatherType?
+//         weatherType: WeatherType?,
+         currentWeather: WeatherModel
     ) {
         self.viewModel = viewModel
         self.didTapCell = didTapCell
-        self.weatherType = weatherType
+//        self.weatherType = weatherType
+        self.currentWeather = currentWeather
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -39,14 +40,9 @@ class FavoritesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         setUpViews()
         setUpConstraints()
-        
-        getFavorites()
-        
-        setGradientBackground(weatherType ?? .mild)
-        
+        setGradientBackground(currentWeather)
     }
     
     func setUpViews() {
@@ -63,17 +59,11 @@ class FavoritesViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)])
     }
     
-    func getFavorites() {
-        guard let favorite = userDefaults.array(forKey: "favorites") as? [String] else { return }
-        favorites = favorite
-        tableView.reloadData()
-    }
-    
-    private func setGradientBackground(_ weatherType: WeatherType = .mild) {
+    private func setGradientBackground(_ weather: WeatherModel) {
         var colorTop =  UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         var colorBottom = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
         
-        switch weatherType {
+        switch weather.weatherType {
         case .hot:
             colorTop = UIColor(red: 121.0/255.0, green: 4.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
             colorBottom = UIColor(red: 255.0/255.0, green: 91.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
@@ -102,12 +92,12 @@ class FavoritesViewController: UIViewController {
 
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favorites.count
+        return viewModel.favorites.count()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
-            cell.textLabel?.text = favorites[indexPath.row]
+            cell.textLabel?.text = viewModel.favorites.favoriteCity(indexPath.row)
             cell.textLabel?.textColor = .white
             cell.backgroundColor = .clear
             
@@ -120,6 +110,6 @@ extension FavoritesViewController: UITableViewDataSource {
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.popViewController(animated: true)
-        didTapCell?(favorites[indexPath.row])
+        didTapCell?(viewModel.favorites.favoriteCity(indexPath.row))
     }
 }

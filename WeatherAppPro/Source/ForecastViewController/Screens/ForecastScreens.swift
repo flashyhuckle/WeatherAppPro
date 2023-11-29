@@ -2,13 +2,11 @@ import UIKit
 
 struct ForecastScreens {
     func createForecastViewController(
-        city: String,
-        weatherType: WeatherType?
+        currentWeather: WeatherModel
     ) -> UIViewController {
         let viewModel = ForecastViewModel(
-            city: city,
             apiManager: ApiManager(),
-            weatherType: weatherType
+            currentWeather: currentWeather
             
         )
         return ForecastViewController(viewModel: viewModel)

@@ -6,23 +6,30 @@ struct FavoritesCoordinator: CoordinatorType {
     private let screens: FavoritesScreens = FavoritesScreens()
     private let presenter: UINavigationController
     private let didTapCell: ((String) -> Void)?
-    private let weatherType: WeatherType?
+    private let currentWeather: WeatherModel
     
     //MARK: Init
     init(presenter: UINavigationController,
          didTapCell: ((String) -> Void)?,
-         weatherType: WeatherType?
+         currentWeather: WeatherModel
     ) {
         self.presenter = presenter
         self.didTapCell = didTapCell
-        self.weatherType = weatherType
+        self.currentWeather = currentWeather
     }
     //MARK: Start
     func start() {
         let favoritesViewController = screens.createFavoritesViewController(
             didTapCell: didTapCell,
-            weatherType: weatherType
+            currentWeather: currentWeather
         )
         presenter.pushViewController(favoritesViewController, animated: true)
+    }
+    
+    func startSUI() {
+        let favoritesVCSUI = screens.createFavoritesVCSUI(
+            didTapCell: didTapCell,
+            currentWeather: currentWeather
+        )
     }
 }

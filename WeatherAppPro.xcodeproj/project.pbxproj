@@ -8,8 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		A402A1FD2B162BCF0065193F /* LandingViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A1FC2B162BCF0065193F /* LandingViewButton.swift */; };
-		A402A2002B1637D50065193F /* Subviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A1FF2B1637D50065193F /* Subviews.swift */; };
+		A402A2002B1637D50065193F /* LandingVCSUISubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A1FF2B1637D50065193F /* LandingVCSUISubviews.swift */; };
 		A402A2042B1638870065193F /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A2032B1638870065193F /* LocationManager.swift */; };
+		A402A2072B1677310065193F /* Favorites.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A2062B1677310065193F /* Favorites.swift */; };
+		A402A20B2B1761910065193F /* ForecastVCSUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A20A2B1761910065193F /* ForecastVCSUI.swift */; };
+		A402A20E2B1761BA0065193F /* DetailForecastSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A20D2B1761BA0065193F /* DetailForecastSubview.swift */; };
+		A402A2102B1762250065193F /* DetailForecastIconAndDateSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = A402A20F2B1762250065193F /* DetailForecastIconAndDateSubview.swift */; };
+		A453B98B2B17BF12009D3AEA /* ForecastVCSUISubviews.swift in Sources */ = {isa = PBXBuildFile; fileRef = A453B98A2B17BF12009D3AEA /* ForecastVCSUISubviews.swift */; };
 		A4593C5A2B0DE9320023362E /* DetailForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4593C592B0DE9320023362E /* DetailForecastView.swift */; };
 		A4648E75299ABCDE00E99698 /* ForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4648E74299ABCDE00E99698 /* ForecastResponse.swift */; };
 		A475DC6F2B0D01A500CC28C3 /* DateAndLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */; };
@@ -61,8 +66,13 @@
 
 /* Begin PBXFileReference section */
 		A402A1FC2B162BCF0065193F /* LandingViewButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingViewButton.swift; sourceTree = "<group>"; };
-		A402A1FF2B1637D50065193F /* Subviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Subviews.swift; sourceTree = "<group>"; };
+		A402A1FF2B1637D50065193F /* LandingVCSUISubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingVCSUISubviews.swift; sourceTree = "<group>"; };
 		A402A2032B1638870065193F /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		A402A2062B1677310065193F /* Favorites.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorites.swift; sourceTree = "<group>"; };
+		A402A20A2B1761910065193F /* ForecastVCSUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVCSUI.swift; sourceTree = "<group>"; };
+		A402A20D2B1761BA0065193F /* DetailForecastSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailForecastSubview.swift; sourceTree = "<group>"; };
+		A402A20F2B1762250065193F /* DetailForecastIconAndDateSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailForecastIconAndDateSubview.swift; sourceTree = "<group>"; };
+		A453B98A2B17BF12009D3AEA /* ForecastVCSUISubviews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastVCSUISubviews.swift; sourceTree = "<group>"; };
 		A4593C592B0DE9320023362E /* DetailForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailForecastView.swift; sourceTree = "<group>"; };
 		A4648E74299ABCDE00E99698 /* ForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastResponse.swift; sourceTree = "<group>"; };
 		A475DC6E2B0D01A500CC28C3 /* DateAndLocationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateAndLocationView.swift; sourceTree = "<group>"; };
@@ -149,10 +159,38 @@
 			path = Location;
 			sourceTree = "<group>";
 		};
+		A402A2082B1677C20065193F /* Favorites */ = {
+			isa = PBXGroup;
+			children = (
+				A402A2062B1677310065193F /* Favorites.swift */,
+			);
+			path = Favorites;
+			sourceTree = "<group>";
+		};
+		A402A2092B17616C0065193F /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				A4DA631F29B11E2200579C86 /* ForecastViewController.swift */,
+				A4593C5B2B0DE9370023362E /* Subviews */,
+			);
+			path = UIKit;
+			sourceTree = "<group>";
+		};
+		A402A20C2B1761960065193F /* SwiftUI */ = {
+			isa = PBXGroup;
+			children = (
+				A402A20A2B1761910065193F /* ForecastVCSUI.swift */,
+				A453B98A2B17BF12009D3AEA /* ForecastVCSUISubviews.swift */,
+			);
+			path = SwiftUI;
+			sourceTree = "<group>";
+		};
 		A4593C5B2B0DE9370023362E /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
 				A4593C592B0DE9320023362E /* DetailForecastView.swift */,
+				A402A20D2B1761BA0065193F /* DetailForecastSubview.swift */,
+				A402A20F2B1762250065193F /* DetailForecastIconAndDateSubview.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -182,7 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A446D82B14AB4A0024D7E7 /* LandingVCSUI.swift */,
-				A402A1FF2B1637D50065193F /* Subviews.swift */,
+				A402A1FF2B1637D50065193F /* LandingVCSUISubviews.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -221,6 +259,7 @@
 				A4648E76299ABD2A00E99698 /* Model */,
 				A4A607E9294BC50E00C29FFB /* API */,
 				A402A2052B1638910065193F /* Location */,
+				A402A2082B1677C20065193F /* Favorites */,
 				A4A607DA294BBBC900C29FFB /* Source */,
 				A4A607D9294BBBBD00C29FFB /* Resources */,
 			);
@@ -261,8 +300,8 @@
 				A4A607AB294BA53700C29FFB /* SceneDelegate.swift */,
 				A475DC752B0D29E000CC28C3 /* Constants.swift */,
 				A4A607DC294BBC4000C29FFB /* LandingViewController */,
-				A4DA631E29B11DFD00579C86 /* FavoritesViewController */,
 				A4DA632129B11E2700579C86 /* ForecastViewController */,
+				A4DA631E29B11DFD00579C86 /* FavoritesViewController */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -353,8 +392,8 @@
 		A4DA632329B11E4100579C86 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA631F29B11E2200579C86 /* ForecastViewController.swift */,
-				A4593C5B2B0DE9370023362E /* Subviews */,
+				A402A20C2B1761960065193F /* SwiftUI */,
+				A402A2092B17616C0065193F /* UIKit */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -546,18 +585,23 @@
 				A4A607AA294BA53700C29FFB /* AppDelegate.swift in Sources */,
 				A4DA632B29B11EE700579C86 /* FavoritesScreens.swift in Sources */,
 				A475DC742B0D01C600CC28C3 /* DetailWeatherView.swift in Sources */,
+				A402A20B2B1761910065193F /* ForecastVCSUI.swift in Sources */,
+				A402A2102B1762250065193F /* DetailForecastIconAndDateSubview.swift in Sources */,
 				A4DA633329B11F0E00579C86 /* ForecastViewModel.swift in Sources */,
 				A4A607E6294BBFDA00C29FFB /* LandingViewModel.swift in Sources */,
 				A475DC722B0D01BD00CC28C3 /* MainWeatherView.swift in Sources */,
 				A4A446D92B14AB4A0024D7E7 /* LandingVCSUI.swift in Sources */,
 				A4DA631B29AFD5B900579C86 /* WeatherModel.swift in Sources */,
 				A402A1FD2B162BCF0065193F /* LandingViewButton.swift in Sources */,
-				A402A2002B1637D50065193F /* Subviews.swift in Sources */,
+				A402A2002B1637D50065193F /* LandingVCSUISubviews.swift in Sources */,
+				A453B98B2B17BF12009D3AEA /* ForecastVCSUISubviews.swift in Sources */,
+				A402A2072B1677310065193F /* Favorites.swift in Sources */,
 				A4A446DF2B14E40A0024D7E7 /* FavoritesVCSUI.swift in Sources */,
 				A4A607DE294BBC9D00C29FFB /* LandingViewController.swift in Sources */,
 				A4A607AC294BA53700C29FFB /* SceneDelegate.swift in Sources */,
 				A4DA632F29B11EFE00579C86 /* FavoritesCoordinator.swift in Sources */,
 				A475DC6F2B0D01A500CC28C3 /* DateAndLocationView.swift in Sources */,
+				A402A20E2B1761BA0065193F /* DetailForecastSubview.swift in Sources */,
 				A4DA633529B11F1600579C86 /* ForecastCoordinator.swift in Sources */,
 				A4A607E4294BBFC900C29FFB /* LandingScreens.swift in Sources */,
 				A4DA631D29B11DEB00579C86 /* FavoritesViewController.swift in Sources */,

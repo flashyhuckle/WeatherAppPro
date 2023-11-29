@@ -5,20 +5,20 @@ struct ForecastCoordinator: CoordinatorType {
     //MARK: Properties
     private let screens: ForecastScreens = ForecastScreens()
     private let presenter: UINavigationController
-    private var city: String
-    private var weatherType: WeatherType?
+    private var currentWeather: WeatherModel
     
     //MARK: Init
-    init(presenter: UINavigationController, city: String, weatherType: WeatherType?) {
+    init(
+        presenter: UINavigationController,
+        currentWeather: WeatherModel
+    ) {
         self.presenter = presenter
-        self.city = city
-        self.weatherType = weatherType
+        self.currentWeather = currentWeather
     }
     //MARK: Start
     func start() {
         let forecastViewController = screens.createForecastViewController(
-            city: city,
-            weatherType: weatherType
+            currentWeather: currentWeather
         )
         presenter.pushViewController(forecastViewController, animated: true)
     }

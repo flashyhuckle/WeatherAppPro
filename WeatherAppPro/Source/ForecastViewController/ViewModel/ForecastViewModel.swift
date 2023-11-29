@@ -2,24 +2,21 @@ import Foundation
 
 final class ForecastViewModel {
     
-    private let city: String
     private let apiManager: ApiManagerInterface
-    let weatherType: WeatherType?
+    let currentWeather: WeatherModel
     
     init(
-        city: String,
         apiManager: ApiManagerInterface,
-        weatherType: WeatherType?
+        currentWeather: WeatherModel
     ) {
-        self.city = city
         self.apiManager = apiManager
-        self.weatherType = weatherType
+        self.currentWeather = currentWeather
     }
     
     var didReceiveData: (([WeatherModel]) -> Void)?
     
     func viewDidLoad() {
-        apiManager.fetchWeather(city: city, forecast: true) { [ weak self ] result in
+        apiManager.fetchWeather(city: currentWeather.cityName, forecast: true) { [ weak self ] result in
             switch result {
             case .success(let weather):
                 guard let self else { return }

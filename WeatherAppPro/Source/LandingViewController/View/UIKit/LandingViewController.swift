@@ -100,7 +100,7 @@ class LandingViewController: UIViewController {
             self?.mainWeatherView.setMainWeatherView(
                 icon: weather[0].systemIcon,
                 temperature: weather[0].temperatureString,
-                description: weather[0].description
+                description: weather[0].descriptionString
             )
             
             self?.detailWeatherView.setData(
@@ -114,11 +114,7 @@ class LandingViewController: UIViewController {
         }
         
         viewModel.didChangeCity = { newCityIsFavorite in
-            if newCityIsFavorite {
-                self.favoritesBarButton.image = UIImage(systemName: "star.fill")
-            } else {
-                self.favoritesBarButton.image = UIImage(systemName: "star")
-            }
+            self.favoritesBarButton.image = UIImage(systemName: newCityIsFavorite ? "star.fill" : "star")
         }
         
         viewModel.viewDidLoad()
@@ -210,8 +206,8 @@ class LandingViewController: UIViewController {
         view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    private func searchByCity(city: String) {
-        viewModel.searchByCity(city: city)
+    private func searchBarPressed(city: String) {
+        viewModel.searchBy(cityName: city)
     }
     
     @objc private func favoritesPressed() {
@@ -231,7 +227,7 @@ class LandingViewController: UIViewController {
     }
     
     @objc private func swiftUIButtonPressed() {
-        viewModel.swiftUIButtonPressed()
+        viewModel.UIButtonPressed()
     }
 }
 
@@ -239,7 +235,7 @@ class LandingViewController: UIViewController {
 
 extension LandingViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchByCity(city: searchBar.text!)
+        searchBarPressed(city: searchBar.text!)
         searchBar.text = ""
         searchBar.resignFirstResponder()
     }
