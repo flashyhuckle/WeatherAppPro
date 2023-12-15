@@ -1,10 +1,3 @@
-//
-//  AppDelegate.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 15/12/2022.
-//
-
 import UIKit
 
 @main

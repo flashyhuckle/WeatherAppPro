@@ -25,11 +25,4 @@ struct FavoritesCoordinator: CoordinatorType {
         )
         presenter.pushViewController(favoritesViewController, animated: true)
     }
-    
-    func startSUI() {
-        let favoritesVCSUI = screens.createFavoritesVCSUI(
-            didTapCell: didTapCell,
-            currentWeather: currentWeather
-        )
-    }
 }

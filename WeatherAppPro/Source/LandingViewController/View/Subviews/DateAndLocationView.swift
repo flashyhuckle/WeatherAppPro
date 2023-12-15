@@ -1,10 +1,3 @@
-//
-//  DateAndLocationView.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 21/11/2023.
-//
-
 import UIKit
 
 class DateAndLocationView: UIView {
@@ -59,12 +52,12 @@ class DateAndLocationView: UIView {
             cityLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             cityLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 5),
             cityLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            cityLabel.heightAnchor.constraint(equalToConstant: 50),
+//            cityLabel.heightAnchor.constraint(equalToConstant: 50),
             
             dateLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5),
             dateLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: 5),
             dateLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5),
-            dateLabel.heightAnchor.constraint(equalToConstant: 50)
+//            dateLabel.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

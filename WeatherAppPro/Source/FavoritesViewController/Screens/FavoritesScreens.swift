@@ -6,22 +6,12 @@ struct FavoritesScreens {
         didTapCell: ((String) -> Void)?,
         currentWeather: WeatherModel
     ) -> UIViewController {
-        let viewModel = FavoritesViewModel(favorites: Favorites())
-        let vc = FavoritesViewController(
-            viewModel: viewModel,
+        let viewModel = FavoritesViewModel(
+            favorites: Favorites(),
             didTapCell: didTapCell,
             currentWeather: currentWeather
         )
-        return vc
-    }
-    
-    func createFavoritesVCSUI(
-        didTapCell: ((String) -> Void)?,
-        currentWeather: WeatherModel
-    ) -> any View {
-        let viewModel = FavoritesViewModel(favorites: Favorites())
-        let vc = FavoritesVCSUI(
-            didTapCell: didTapCell,
+        let vc = FavoritesViewController(
             viewModel: viewModel
         )
         return vc

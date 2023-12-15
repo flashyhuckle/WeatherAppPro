@@ -1,10 +1,3 @@
-//
-//  WeatherAppProTests.swift
-//  WeatherAppProTests
-//
-//  Created by Marcin Głodzik on 15/12/2022.
-//
-
 import XCTest
 @testable import WeatherAppPro
 

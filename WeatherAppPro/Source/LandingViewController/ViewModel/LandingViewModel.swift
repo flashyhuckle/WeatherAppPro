@@ -1,15 +1,14 @@
-import SwiftUI
-
 final class LandingViewModel {
     
     private let didTapForecastButton: ((WeatherModel) -> Void)?
     private let didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?
-    private let didTapUIButton: ((LandingViewModel) -> Void)?
     
     private let apiManager: ApiManagerInterface
-    private var favoriteCities: Favorites
-    private var locationManager: LocationManager
+    private var favoriteCities: FavoritesType
+    private var locationManager: LocationManagerType
     
+    private var cachedCities: [String: WeatherModel] = [:]
+
     var currentWeather: WeatherModel {
         didSet {
             didChangeCity?(checkIfFavorite())
@@ -19,28 +18,25 @@ final class LandingViewModel {
     init(
         didTapForecastButton: ((WeatherModel) -> Void)?,
         didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?,
-        didTapUIButton: ((LandingViewModel) -> Void)?,
         apiManager: ApiManagerInterface,
-        favoriteCities: Favorites,
-        locationManager: LocationManager,
+        favoriteCities: FavoritesType,
+        locationManager: LocationManagerType,
         currentWeather: WeatherModel
         
     ) {
         self.didTapForecastButton = didTapForecastButton
         self.didTapFavoritesButton = didTapFavoritesButton
-        self.didTapUIButton = didTapUIButton
         self.apiManager = apiManager
         self.favoriteCities = favoriteCities
         self.locationManager = locationManager
         self.currentWeather = currentWeather
     }
     
-    var didReceiveData: (([WeatherModel]) -> Void)?
+    var didReceiveData: ((WeatherModel) -> Void)?
     var didChangeCity: ((Bool) -> Void)?
     
     func viewDidLoad() {
         searchByCity(city: currentWeather.cityName)
-        didChangeCity?(checkIfFavorite())
     }
     
     func searchBy(cityName city: String) {
@@ -48,23 +44,23 @@ final class LandingViewModel {
     }
     
     private func searchByCity(city: String) {
-        //FIX zmienić warunek istnienia daty na warunek "świeżości"
-        if currentWeather.date != nil {
-            if city == currentWeather.cityName {
-                didReceiveData?([currentWeather])
-                return
-            }
-        }
-        apiManager.fetchWeather(city: city, forecast: false) { [ weak self ] result in
-            switch result {
-            case .success(let weather):
-                guard let self else { return }
-                self.didReceiveData?(weather)
-                self.currentWeather = weather[0]
+        switch cachedCities[city] {
+        case .none:
+            apiManager.fetchCurrentWeather(for: city) { [ weak self ] result in
+                switch result {
+                case .success(let weather):
+                    guard let self else { return }
+                    self.cachedCities[city] = weather
+                    self.didReceiveData?(weather)
+                    self.currentWeather = weather
 
-            case .failure(let error):
-                print("ERROR: \(error)")
+                case .failure(let error):
+                    print("ERROR: \(error)")
+                }
             }
+        case .some(let cityWeather):
+            didReceiveData?(cityWeather)
+            currentWeather = cityWeather
         }
     }
     
@@ -76,13 +72,13 @@ final class LandingViewModel {
         locationManager.requestLocation()
     }
     
-    func onTapLocationSearchButton(lat: Double, lon: Double) {
-        apiManager.fetchWeather(lat: lat, lon: lon, forecast: false) { [ weak self ] result in
+    private func onTapLocationSearchButton(lat: Double, lon: Double) {
+        apiManager.fetchCurrentWeather(lat: lat, lon: lon) { [ weak self ] result in
             switch result {
             case .success(let weather):
                 guard let self else { return }
                 self.didReceiveData?(weather)
-                self.currentWeather = weather[0]
+                self.currentWeather = weather
             case .failure(let error):
                 print("ERROR: \(error)")
             }
@@ -94,7 +90,7 @@ final class LandingViewModel {
         didChangeCity?(checkIfFavorite())
     }
     
-    func checkIfFavorite() -> Bool {
+    private func checkIfFavorite() -> Bool {
         favoriteCities.contains(currentWeather.cityName)
     }
 
@@ -108,9 +104,5 @@ final class LandingViewModel {
 
     private func refresh(with cityName: String) {
         searchByCity(city: cityName)
-    }
-    
-    func UIButtonPressed() {
-        didTapUIButton?(self)
     }
 }

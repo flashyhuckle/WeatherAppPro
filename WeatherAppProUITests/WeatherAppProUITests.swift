@@ -1,10 +1,3 @@
-//
-//  WeatherAppProUITests.swift
-//  WeatherAppProUITests
-//
-//  Created by Marcin Głodzik on 15/12/2022.
-//
-
 import XCTest
 
 final class WeatherAppProUITests: XCTestCase {

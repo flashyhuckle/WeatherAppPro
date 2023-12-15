@@ -8,7 +8,7 @@ enum WeatherType {
     case freezing
 }
 
-struct WeatherModel {
+struct WeatherModel: Equatable {
     let cityName: String
     let country: String?
     let date: Date?
@@ -155,4 +155,49 @@ struct WeatherModel {
         pressure: nil,
         windSpeed: nil
     )
+}
+
+extension WeatherModel {
+    static func makeForecast(
+        from model: ForecastResponse
+    ) -> [Self] {
+        model.list.enumerated().map { index, forecast in
+            WeatherModel(
+                cityName: model.city.name,
+                country: model.city.country,
+                date: Date(
+                    timeInterval: TimeInterval(((index + 1) * 86400)),
+                    since: Date()
+                ),
+                temperature: forecast.main.temp,
+                maxTemperature: forecast.main.temp_max,
+                minTemperature: forecast.main.temp_min,
+                icon: forecast.weather[0].icon,
+                description: forecast.weather[0].description,
+                sunrise: model.city.sunrise,
+                sunset: model.city.sunset,
+                pressure: forecast.main.pressure ?? 0,
+                windSpeed: forecast.wind.speed
+            )
+        }
+    }
+
+    static func makeCurrent(
+        from model: CurrentResponse
+    ) -> Self {
+        WeatherModel(
+            cityName: model.name,
+            country: model.sys.country,
+            date: Date(),
+            temperature: model.main.temp,
+            maxTemperature: model.main.temp_max,
+            minTemperature: model.main.temp_min,
+            icon: model.weather[0].icon,
+            description: model.weather[0].description,
+            sunrise: model.sys.sunrise,
+            sunset: model.sys.sunset,
+            pressure: model.main.pressure,
+            windSpeed: model.wind.speed
+        )
+    }
 }

@@ -4,9 +4,6 @@ class FavoritesViewController: UIViewController {
     
     //MARK: Properties
     let viewModel: FavoritesViewModel
-    let didTapCell: ((String) -> Void)?
-//    var weatherType: WeatherType?
-    let currentWeather: WeatherModel
     
     //MARK: Views
     private lazy var tableView: UITableView = {
@@ -19,15 +16,10 @@ class FavoritesViewController: UIViewController {
     }()
     
     //MARK: Init
-    init(viewModel: FavoritesViewModel,
-         didTapCell: ((String) -> Void)?,
-//         weatherType: WeatherType?,
-         currentWeather: WeatherModel
+    init(
+        viewModel: FavoritesViewModel
     ) {
         self.viewModel = viewModel
-        self.didTapCell = didTapCell
-//        self.weatherType = weatherType
-        self.currentWeather = currentWeather
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -35,14 +27,13 @@ class FavoritesViewController: UIViewController {
         fatalError()
     }
     
-    
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpViews()
         setUpConstraints()
-        setGradientBackground(currentWeather)
+        setGradientBackground(for: viewModel.currentWeather.weatherType)
     }
     
     func setUpViews() {
@@ -59,31 +50,9 @@ class FavoritesViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)])
     }
     
-    private func setGradientBackground(_ weather: WeatherModel) {
-        var colorTop =  UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-        var colorBottom = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-        
-        switch weather.weatherType {
-        case .hot:
-            colorTop = UIColor(red: 121.0/255.0, green: 4.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 255.0/255.0, green: 91.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .warm:
-            colorTop = UIColor(red: 121.0/255.0, green: 70.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 255.0/255.0, green: 220.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .mild:
-            colorTop = UIColor(red: 121.0/255.0, green: 105.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 218.0/255.0, green: 217.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .cold:
-            colorTop = UIColor(red: 4.0/255.0, green: 121.0/255.0, blue: 11.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 0.0/255.0, green: 247.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        case .freezing:
-            colorTop = UIColor(red: 4.0/255.0, green: 33.0/255.0, blue: 121.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 0.0/255.0, green: 179.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        }
+    private func setGradientBackground(for weatherType: WeatherType) {
     
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
+        let gradientLayer = WeatherGradientMaker().createGradient(for: weatherType)
         gradientLayer.frame = view.bounds
         
         view.layer.insertSublayer(gradientLayer, at: 0)
@@ -109,7 +78,6 @@ extension FavoritesViewController: UITableViewDataSource {
 
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.popViewController(animated: true)
-        didTapCell?(viewModel.favorites.favoriteCity(indexPath.row))
+        viewModel.didTapCell(indexPath.row)
     }
 }

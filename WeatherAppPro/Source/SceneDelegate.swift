@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 15/12/2022.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -16,12 +9,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        
         guard let window = window else { return }
         
-        self.landingCoordinator = LandingCoordinator(presenter: window)
+        landingCoordinator = LandingCoordinator(presenter: window)
         landingCoordinator?.start()
-        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

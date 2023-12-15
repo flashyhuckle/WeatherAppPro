@@ -1,15 +1,13 @@
-//
-//  LocationManager.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 28/11/2023.
-//
-
 import Foundation
 import CoreLocation
 import CoreLocationUI
 
-class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
+protocol LocationManagerType {
+    var didReceiveLocation: ((CLLocationCoordinate2D) -> Void)? { get set }
+    func requestLocation()
+}
+
+class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate, LocationManagerType {
     let manager = CLLocationManager()
 
     @Published var location: CLLocationCoordinate2D?

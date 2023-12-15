@@ -16,7 +16,7 @@ final class ForecastViewModel {
     var didReceiveData: (([WeatherModel]) -> Void)?
     
     func viewDidLoad() {
-        apiManager.fetchWeather(city: currentWeather.cityName, forecast: true) { [ weak self ] result in
+        apiManager.fetchForecastWeather(city: currentWeather.cityName) { [ weak self ] result in
             switch result {
             case .success(let weather):
                 guard let self else { return }

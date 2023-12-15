@@ -1,17 +1,10 @@
-//
-//  MainWeatherView.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 21/11/2023.
-//
-
 import UIKit
 
 class MainWeatherView: UIView {
     
     private let temperatureLabel: UILabel = {
         let label = UILabel()
-        label.text = "25°C"
+        label.text = "25°"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Avenir-Light", size: 100.0)
         label.textColor = .white
@@ -38,9 +31,9 @@ class MainWeatherView: UIView {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Mild rain"
+        label.text = "Sunny"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: "Avenir-Light", size: 30.0)
+        label.font = UIFont(name: "Avenir-Light", size: 25.0)
         label.textColor = .white
         label.textAlignment = .center
         if Constants.showingViewBorders {

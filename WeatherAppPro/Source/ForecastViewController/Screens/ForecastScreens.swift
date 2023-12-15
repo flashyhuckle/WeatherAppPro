@@ -5,7 +5,10 @@ struct ForecastScreens {
         currentWeather: WeatherModel
     ) -> UIViewController {
         let viewModel = ForecastViewModel(
-            apiManager: ApiManager(),
+            apiManager: ApiManager(
+                urlCreator: WeatherURLCreator(),
+                requestPerformer: RequestPerformer()
+            ),
             currentWeather: currentWeather
             
         )

@@ -1,6 +1,11 @@
 import Foundation
 
-class Favorites: ObservableObject {
+protocol FavoritesType {
+    func buttonTapped(_ city: String)
+    func contains(_ city: String) -> Bool
+}
+
+class Favorites: FavoritesType {
     private var favorites: Set<String> {
         didSet {
             favoritesArray = favorites.map {$0}
@@ -8,13 +13,18 @@ class Favorites: ObservableObject {
         }
     }
     var favoritesArray = [String]()
+    let storage: UserDefaultsWrapperInterface
     
-    init() {
-        if let defaults = UserDefaults.standard.object(forKey: Constants.favoritesSaveKey) as? [String] {
+    init(
+        storage: UserDefaultsWrapperInterface = UserDefaultsWrapper()
+    ) {        
+        self.storage = storage
+        do {
+            let defaults = try storage.get(forKey: Constants.favoritesSaveKey, castTo: [String].self)
             favoritesArray = defaults.sorted()
             let set = Set(defaults.map {$0})
             favorites = set
-        } else {
+        } catch {
             favorites = []
         }
     }
@@ -40,19 +50,23 @@ class Favorites: ObservableObject {
     }
     
     private func add(_ city: String) {
-        objectWillChange.send()
+//        objectWillChange.send()
         favorites.insert(city.capitalized)
         save()
     }
     
     private func remove(_ city: String) {
-        objectWillChange.send()
+//        objectWillChange.send()
         favorites.remove(city.capitalized)
         save()
     }
     
     private func save() {
         let array = favorites.map { $0 }
-        UserDefaults.standard.set(array, forKey: Constants.favoritesSaveKey)
+        do {
+            try storage.set(object: array, forKey: Constants.favoritesSaveKey)
+        } catch {
+            print("Favorites: Failed to save data.")
+        }
     }
 }

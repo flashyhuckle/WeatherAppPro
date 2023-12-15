@@ -63,14 +63,6 @@ class LandingViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
-    private lazy var swiftUIButton: UIButton = {
-        let button = LandingViewButton()
-        button.title = "swiftUI"
-        button.addTarget(self, action: #selector(swiftUIButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
     
     //MARK: Initialization
     
@@ -91,30 +83,30 @@ class LandingViewController: UIViewController {
         searchBar.delegate = self
         
         viewModel.didReceiveData = { [ weak self ] weather in
-            self?.setGradientBackground(weather[0].weatherType)
+            self?.setGradientBackground(weather.weatherType)
             self?.dateAndLocationView.setDateAndLocation(
-                date: weather[0].dateString,
-                location: weather[0].locationString
+                date: weather.dateString,
+                location: weather.locationString
             )
             
             self?.mainWeatherView.setMainWeatherView(
-                icon: weather[0].systemIcon,
-                temperature: weather[0].temperatureString,
-                description: weather[0].descriptionString
+                icon: weather.systemIcon,
+                temperature: weather.temperatureString,
+                description: weather.descriptionString
             )
             
             self?.detailWeatherView.setData(
-                maxTemp: weather[0].maxtemperatureString,
-                minTemp: weather[0].mintemperatureString,
-                windSpeed: weather[0].windSpeedString,
-                pressure: weather[0].pressureString,
-                sunrise: weather[0].sunriseString,
-                sunset: weather[0].sunsetString
+                maxTemp: weather.maxtemperatureString,
+                minTemp: weather.mintemperatureString,
+                windSpeed: weather.windSpeedString,
+                pressure: weather.pressureString,
+                sunrise: weather.sunriseString,
+                sunset: weather.sunsetString
             )
         }
         
-        viewModel.didChangeCity = { newCityIsFavorite in
-            self.favoritesBarButton.image = UIImage(systemName: newCityIsFavorite ? "star.fill" : "star")
+        viewModel.didChangeCity = { [ weak self ] newCityIsFavorite in
+            self?.favoritesBarButton.image = UIImage(systemName: newCityIsFavorite ? "star.fill" : "star")
         }
         
         viewModel.viewDidLoad()
@@ -127,79 +119,50 @@ class LandingViewController: UIViewController {
         navigationItem.leftBarButtonItem = locationSearchButton
         
         view.addSubview(searchBar)
-        view.addSubview(forecastButton)
-        view.addSubview(favoritesButton)
-        view.addSubview(swiftUIButton)
         
         view.addSubview(dateAndLocationView)
         view.addSubview(mainWeatherView)
         view.addSubview(detailWeatherView)
+
+        view.addSubview(forecastButton)
+        view.addSubview(favoritesButton)
     }
     
     private func setUpConstraints() {
         NSLayoutConstraint.activate([
-            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.heightAnchor.constraint(equalToConstant: 50),
-            searchBar.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-            
-            forecastButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            forecastButton.topAnchor.constraint(equalTo: detailWeatherView.bottomAnchor, constant: 20),
-            forecastButton.heightAnchor.constraint(equalToConstant: 50),
-            forecastButton.widthAnchor.constraint(equalToConstant: 150),
-            
-            favoritesButton.leadingAnchor.constraint(equalTo: forecastButton.trailingAnchor, constant: 50),
-            favoritesButton.topAnchor.constraint(equalTo: detailWeatherView.bottomAnchor, constant: 20),
-            favoritesButton.heightAnchor.constraint(equalToConstant: 50),
-            favoritesButton.widthAnchor.constraint(equalToConstant: 150),
-            
-            dateAndLocationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+
+            dateAndLocationView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             dateAndLocationView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+            dateAndLocationView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             dateAndLocationView.heightAnchor.constraint(equalToConstant: 115),
-            dateAndLocationView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
             
-            mainWeatherView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainWeatherView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             mainWeatherView.topAnchor.constraint(equalTo: dateAndLocationView.bottomAnchor, constant: 10),
+            mainWeatherView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             mainWeatherView.heightAnchor.constraint(equalToConstant: 160),
-            mainWeatherView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
-            
-            detailWeatherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+
+//            detailWeatherView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             detailWeatherView.topAnchor.constraint(equalTo: mainWeatherView.bottomAnchor, constant: 10),
+//            detailWeatherView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            detailWeatherView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             detailWeatherView.heightAnchor.constraint(equalToConstant: 170),
-            detailWeatherView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1),
+            detailWeatherView.widthAnchor.constraint(equalToConstant: 395),
             
-            swiftUIButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            swiftUIButton.topAnchor.constraint(equalTo: forecastButton.bottomAnchor, constant: 10),
-            swiftUIButton.heightAnchor.constraint(equalToConstant: 50),
-            swiftUIButton.widthAnchor.constraint(equalToConstant: 150)
+            forecastButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            forecastButton.topAnchor.constraint(equalTo: detailWeatherView.bottomAnchor, constant: 10),
+            forecastButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            favoritesButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            favoritesButton.topAnchor.constraint(equalTo: forecastButton.bottomAnchor, constant: 10),
+            favoritesButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
     
     private func setGradientBackground(_ weatherType: WeatherType = .mild) {
-        var colorTop =  UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-        var colorBottom = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-        
-        switch weatherType {
-        case .hot:
-            colorTop = UIColor(red: 121.0/255.0, green: 4.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 255.0/255.0, green: 91.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .warm:
-            colorTop = UIColor(red: 121.0/255.0, green: 70.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 255.0/255.0, green: 220.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .mild:
-            colorTop = UIColor(red: 121.0/255.0, green: 105.0/255.0, blue: 4.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 218.0/255.0, green: 217.0/255.0, blue: 0.0/255.0, alpha: 1.0).cgColor
-        case .cold:
-            colorTop = UIColor(red: 4.0/255.0, green: 121.0/255.0, blue: 11.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 0.0/255.0, green: 247.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        case .freezing:
-            colorTop = UIColor(red: 4.0/255.0, green: 33.0/255.0, blue: 121.0/255.0, alpha: 1.0).cgColor
-            colorBottom = UIColor(red: 0.0/255.0, green: 179.0/255.0, blue: 255.0/255.0, alpha: 1.0).cgColor
-        }
-    
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [colorTop, colorBottom]
-        gradientLayer.locations = [0.0, 1.0]
+        let gradientLayer = WeatherGradientMaker().createGradient(for: weatherType)
         gradientLayer.frame = view.bounds
         
         view.layer.sublayers?[0].removeFromSuperlayer()
@@ -225,10 +188,6 @@ class LandingViewController: UIViewController {
     @objc private func favoritesButtonPressed() {
         viewModel.onTapFavoritesButton()
     }
-    
-    @objc private func swiftUIButtonPressed() {
-        viewModel.UIButtonPressed()
-    }
 }
 
 //MARK: SearchBar delegate
@@ -240,6 +199,3 @@ extension LandingViewController: UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
 }
-
-
-

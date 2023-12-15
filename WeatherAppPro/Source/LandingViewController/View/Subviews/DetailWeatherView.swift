@@ -1,20 +1,13 @@
-//
-//  DetailWeatherView.swift
-//  WeatherAppPro
-//
-//  Created by Marcin Głodzik on 21/11/2023.
-//
-
 import UIKit
 
 class DetailWeatherView: UIView {
     
-    private let maxTemperatureView = DetailWeatherSubview()
-    private let minTemperatureView = DetailWeatherSubview()
-    private let windSpeedView = DetailWeatherSubview()
-    private let pressureView = DetailWeatherSubview()
-    private let sunriseView = DetailWeatherSubview()
-    private let sunsetView = DetailWeatherSubview()
+    private let maxTemperatureView = DetailWeatherSubview(label: "Max", data: "25°")
+    private let minTemperatureView = DetailWeatherSubview(label: "Min", data: "0°")
+    private let windSpeedView = DetailWeatherSubview(label: "Wind", data: "5km/h")
+    private let pressureView = DetailWeatherSubview(label: "Pressure", data: "1000hPa")
+    private let sunriseView = DetailWeatherSubview(label: "Sunrise", data: "6:00")
+    private let sunsetView = DetailWeatherSubview(label: "Sunset", data: "20:00")
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -40,33 +33,35 @@ class DetailWeatherView: UIView {
         addSubview(sunsetView)
         
         NSLayoutConstraint.activate([
-            maxTemperatureView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            maxTemperatureView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             maxTemperatureView.topAnchor.constraint(equalTo: topAnchor),
             maxTemperatureView.heightAnchor.constraint(equalToConstant: 85),
             maxTemperatureView.widthAnchor.constraint(equalToConstant: 125),
             
-            minTemperatureView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            minTemperatureView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
             minTemperatureView.topAnchor.constraint(equalTo: maxTemperatureView.bottomAnchor),
             minTemperatureView.heightAnchor.constraint(equalToConstant: 85),
             minTemperatureView.widthAnchor.constraint(equalToConstant: 125),
             
-            windSpeedView.leadingAnchor.constraint(equalTo: maxTemperatureView.trailingAnchor),
+            windSpeedView.leadingAnchor.constraint(equalTo: maxTemperatureView.trailingAnchor, constant: 5),
             windSpeedView.topAnchor.constraint(equalTo: topAnchor),
             windSpeedView.heightAnchor.constraint(equalToConstant: 85),
             windSpeedView.widthAnchor.constraint(equalToConstant: 125),
             
-            pressureView.leadingAnchor.constraint(equalTo: maxTemperatureView.trailingAnchor),
+            pressureView.leadingAnchor.constraint(equalTo: maxTemperatureView.trailingAnchor, constant: 5),
             pressureView.topAnchor.constraint(equalTo: windSpeedView.bottomAnchor),
             pressureView.heightAnchor.constraint(equalToConstant: 85),
             pressureView.widthAnchor.constraint(equalToConstant: 125),
             
-            sunriseView.leadingAnchor.constraint(equalTo: windSpeedView.trailingAnchor),
+            sunriseView.leadingAnchor.constraint(equalTo: windSpeedView.trailingAnchor, constant: 5),
             sunriseView.topAnchor.constraint(equalTo: topAnchor),
+            sunriseView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             sunriseView.heightAnchor.constraint(equalToConstant: 85),
             sunriseView.widthAnchor.constraint(equalToConstant: 125),
             
-            sunsetView.leadingAnchor.constraint(equalTo: windSpeedView.trailingAnchor),
+            sunsetView.leadingAnchor.constraint(equalTo: windSpeedView.trailingAnchor, constant: 5),
             sunsetView.topAnchor.constraint(equalTo: maxTemperatureView.bottomAnchor),
+            sunsetView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
             sunsetView.heightAnchor.constraint(equalToConstant: 85),
             sunsetView.widthAnchor.constraint(equalToConstant: 125)
             
@@ -87,10 +82,11 @@ class DetailWeatherSubview: UIView {
     
     private let mainLabel: UILabel = {
         let label = UILabel()
-        label.text = "25°C"
+        label.text = "25°"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Avenir-Light", size: 30.0)
         label.textColor = Constants.fontColor
+        label.textAlignment = .center
         if Constants.showingViewBorders {
             label.layer.borderWidth = 1
             label.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
@@ -104,6 +100,7 @@ class DetailWeatherSubview: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Avenir-Light", size: 20.0)
         label.textColor = Constants.fontColor
+        label.textAlignment = .center
         if Constants.showingViewBorders {
             label.layer.borderWidth = 1
             label.layer.borderColor = CGColor(red: 1, green: 1, blue: 1, alpha: 1)
@@ -111,12 +108,17 @@ class DetailWeatherSubview: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(
+        label: String,
+        data: String
+    ) {
+        super.init(frame: .zero)
         setUpViews()
+        setUpData(title: label, data: data)
     }
     
     required init?(coder: NSCoder) {
+        super.init(coder: coder)
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -143,7 +145,10 @@ class DetailWeatherSubview: UIView {
         ])
     }
     
-    func setUpData(title: String, data: String) {
+    func setUpData(
+        title: String,
+        data: String
+    ) {
         titleLabel.text = title
         mainLabel.text = data
     }
