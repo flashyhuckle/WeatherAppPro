@@ -12,16 +12,6 @@ enum QueryItems {
 
 struct WeatherURLCreatorPro {
     
-//    enum WeatherToURL: String {
-//        case current = "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=79b3683f2a693bab81b3a7c8731ab2ae"
-//        case forecast = "https://api.openweathermap.org/data/2.5/forecast?units=metric&cnt=5&appid=79b3683f2a693bab81b3a7c8731ab2ae"
-//    }
-    
-//    enum QueryItems {
-//        case city(name: String)
-//        case coordinates(lat: Double, lon: Double)
-//    }
-    
     func createWeatherURL(
         weather: WeatherToURL,
         query: QueryItems

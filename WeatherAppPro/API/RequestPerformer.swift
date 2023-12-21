@@ -17,7 +17,7 @@ struct RequestPerformerPro {
                     let decodedData = try JSONDecoder().decode(fromType, from: data)
                     let castData = castMethod(decodedData)
                     onCompletion(.success(castData))
-                } catch {
+                } catch let error {
 //                    throw HTTPRequestErrorPro.cannotDecodeData(from: data)
                 }
             case .failure(let error):

@@ -34,5 +34,6 @@ struct ForecastResponse: Decodable {
         let country: String
         let sunrise: Int
         let sunset: Int
+        let timezone: Int
     }
 }

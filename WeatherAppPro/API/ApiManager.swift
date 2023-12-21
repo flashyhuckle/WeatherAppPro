@@ -3,12 +3,12 @@ import UIKit
 protocol ApiManagerInterface {
     func fetchCurrentWeather(
         for city: String,
-        onCompletion: @escaping ((Swift.Result<WeatherModel, Error>) -> Void)
+        onCompletion: @escaping ((Swift.Result<[WeatherModel], Error>) -> Void)
     )
     func fetchCurrentWeather(
         lat: Double,
         lon: Double,
-        onCompletion: @escaping ((Swift.Result<WeatherModel, Error>) -> Void)
+        onCompletion: @escaping ((Swift.Result<[WeatherModel], Error>) -> Void)
     )
     func fetchForecastWeather(
         city: String,
@@ -53,13 +53,13 @@ struct WeatherURLCreator {
 struct RequestPerformer {
     func performCurrentWeatherRequest(
         url: URL,
-        onCompletion: @escaping ((Result<WeatherModel, Error>) -> Void)
+        onCompletion: @escaping ((Result<[WeatherModel], Error>) -> Void)
     ) {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data {
                 do {
                     let decodedData = try JSONDecoder().decode(CurrentResponse.self, from: data)
-                    let weather: WeatherModel = WeatherModel.makeCurrent(from: decodedData)
+                    let weather: [WeatherModel] = WeatherModel.makeCurrent(from: decodedData)
                     DispatchQueue.main.async {
                         onCompletion(.success(weather))
                     }
@@ -108,7 +108,7 @@ struct ApiManager: ApiManagerInterface {
     
     func fetchCurrentWeather(
         for city: String,
-        onCompletion: @escaping ((Result<WeatherModel, Error>) -> Void)
+        onCompletion: @escaping ((Result<[WeatherModel], Error>) -> Void)
     ) {
         do {
             let url = try urlCreator.createCurrentWeatherURL(for: city)
@@ -125,12 +125,16 @@ struct ApiManager: ApiManagerInterface {
         } catch {
             print("Unknown error: \(error.localizedDescription)")
         }
+        
+        ApiManagerPro().fetchWeather(weather: .current, query: .city(name: "Dubai")) { result in
+            print(result)
+        }
     }
     
     func fetchCurrentWeather(
         lat: Double,
         lon: Double,
-        onCompletion: @escaping ((Result<WeatherModel, Error>) -> Void)
+        onCompletion: @escaping ((Result<[WeatherModel], Error>) -> Void)
     ) {
         do {
             let url = try urlCreator.createCurrentWeatherURL(lat: lat, lon: lon)
@@ -159,32 +163,6 @@ struct ApiManager: ApiManagerInterface {
             ) { result in
                 onCompletion(result)
             }
-        } catch let error as HTTPRequestError {
-            switch error {
-            case let .cannotBuildValidURL(baseURLPath, path):
-                print("Wrong URL | baseURLPath: \(baseURLPath) | path: \(path)")
-            }
-        } catch {
-            print("Unknown error: \(error.localizedDescription)")
-        }
-    }
-    
-    func fetchCurrentWeather2(
-        for city: String,
-        onCompletion: @escaping ((Result<WeatherModel, Error>) -> Void)
-    ) {
-        do {
-            let url = try urlCreator.createCurrentWeatherURL(for: city)
-            RequestPerformerPro().performRequest(
-                url: url,
-                fromType: CurrentResponse.self,
-                toType: WeatherModel.self
-            ) { currentResponse in
-                WeatherModel.makeCurrent(from: currentResponse)
-                } onCompletion: { result in
-                    onCompletion(result)
-                }
-
         } catch let error as HTTPRequestError {
             switch error {
             case let .cannotBuildValidURL(baseURLPath, path):

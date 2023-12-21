@@ -21,6 +21,7 @@ struct WeatherModel: Equatable {
     let sunset: Int?
     let pressure: Int?
     let windSpeed: Float?
+    let timezone: Int?
     
     var descriptionString: String {
         if let description = description {
@@ -31,16 +32,16 @@ struct WeatherModel: Equatable {
     }
     
     var sunriseString: String {
-        if let sunrise = sunrise {
-            return Date(timeIntervalSince1970: TimeInterval(sunrise)).formatted(date: .omitted, time: .shortened)
+        if let sunrise = sunrise, let timezone = timezone {
+            return Date(timeIntervalSince1970: TimeInterval(sunrise + timezone - TimeZone.current.secondsFromGMT())).formatted(date: .omitted, time: .shortened)
         } else {
             return ""
         }
     }
     
     var sunsetString: String {
-        if let sunset = sunset {
-            return Date(timeIntervalSince1970: TimeInterval(sunset)).formatted(date: .omitted, time: .shortened)
+        if let sunset = sunset, let timezone = timezone  {
+            return Date(timeIntervalSince1970: TimeInterval(sunset + timezone - TimeZone.current.secondsFromGMT())).formatted(date: .omitted, time: .shortened)
         } else {
             return ""
         }
@@ -153,7 +154,8 @@ struct WeatherModel: Equatable {
         sunrise: nil,
         sunset: nil,
         pressure: nil,
-        windSpeed: nil
+        windSpeed: nil,
+        timezone: nil
     )
 }
 
@@ -177,15 +179,16 @@ extension WeatherModel {
                 sunrise: model.city.sunrise,
                 sunset: model.city.sunset,
                 pressure: forecast.main.pressure ?? 0,
-                windSpeed: forecast.wind.speed
+                windSpeed: forecast.wind.speed,
+                timezone: model.city.timezone
             )
         }
     }
 
     static func makeCurrent(
         from model: CurrentResponse
-    ) -> Self {
-        WeatherModel(
+    ) -> [Self] {
+        [WeatherModel(
             cityName: model.name,
             country: model.sys.country,
             date: Date(),
@@ -197,7 +200,9 @@ extension WeatherModel {
             sunrise: model.sys.sunrise,
             sunset: model.sys.sunset,
             pressure: model.main.pressure,
-            windSpeed: model.wind.speed
-        )
+            windSpeed: model.wind.speed,
+            timezone: model.timezone
+        )]
     }
 }
+

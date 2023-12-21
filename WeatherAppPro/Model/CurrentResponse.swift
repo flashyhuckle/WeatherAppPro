@@ -6,6 +6,7 @@ struct CurrentResponse: Decodable {
     let name: String
     let sys: Sys
     let wind: Wind
+    let timezone: Int
     
     struct Weather: Decodable {
         let icon: String

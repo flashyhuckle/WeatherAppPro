@@ -50,9 +50,9 @@ final class LandingViewModel {
                 switch result {
                 case .success(let weather):
                     guard let self else { return }
-                    self.cachedCities[city] = weather
-                    self.didReceiveData?(weather)
-                    self.currentWeather = weather
+                    self.cachedCities[city] = weather[0]
+                    self.didReceiveData?(weather[0])
+                    self.currentWeather = weather[0]
 
                 case .failure(let error):
                     print("ERROR: \(error)")
@@ -77,8 +77,8 @@ final class LandingViewModel {
             switch result {
             case .success(let weather):
                 guard let self else { return }
-                self.didReceiveData?(weather)
-                self.currentWeather = weather
+                self.didReceiveData?(weather[0])
+                self.currentWeather = weather[0]
             case .failure(let error):
                 print("ERROR: \(error)")
             }
