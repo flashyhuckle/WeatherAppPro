@@ -1,6 +1,5 @@
-![Screenshot1](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotLanding.png) ![Screenshot2](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotForecast.png) ![Screenshot3](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotFavorites.png)
+![ScreenshotLanding](https://github.com/flashyhuckle/WeatherAppPro/assets/66034170/072d761d-6121-49f8-85fc-da9486d445e9) ![ScreenshotForecast](https://github.com/flashyhuckle/WeatherAppPro/assets/66034170/ca58daf6-0d5e-4cec-8b12-fdb4280ae7e6) ![ScreenshotFavorites](https://github.com/flashyhuckle/WeatherAppPro/assets/66034170/ae74f751-a109-4e02-8b5e-e7449620815f)
 
-![ScreenshotLanding](https://github.com/flashyhuckle/WeatherAppPro/assets/66034170/cf76cc77-e808-472e-b79b-168811e7a243)
 
 # WeatherAppPro
 
