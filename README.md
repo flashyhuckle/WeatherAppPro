@@ -1,7 +1,9 @@
 ![Screenshot1](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotLanding.png) ![Screenshot2](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotForecast.png) ![Screenshot3](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotFavorites.png)
 
-<picture> 
-<img alt="YOUR-ALT-TEXT" src=https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotLanding.png>
+<picture>
+ <source media="(prefers-color-scheme: dark)" srcset="[YOUR-DARKMODE-IMAGE](https://github.com/flashyhuckle/WeatherAppPro/tree/main/ReadmeScreenshots/ScreenshotLanding.png)">
+ <source media="(prefers-color-scheme: light)" srcset="YOUR-LIGHTMODE-IMAGE">
+ <img alt="YOUR-ALT-TEXT" src="YOUR-DEFAULT-IMAGE">
 </picture>
 
 #WeatherAppPro
