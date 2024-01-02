@@ -2,9 +2,13 @@
 # WeatherAppPro
 
 ## Main Features
--Current weather in searched city or location
--5 day forecast for that city
--List of favorite cities
+- Current weather in searched city or location 
+- 5 day forecast for that city
+- List of favorite cities
+
+## About
+
+
 
 
 <img src="https://github.com/flashyhuckle/WeatherAppPro/assets/66034170/072d761d-6121-49f8-85fc-da9486d445e9" width=20% height=20%>
