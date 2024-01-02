@@ -8,7 +8,9 @@
 
 ## About
 App is made using MVVM-C architecture.
+
 You can search for current weather by either typing desired city name into the search bar, chosing it from your favorite cities list or tap the location button to get weather for your current location. From landing view you can go to forecast view, which displays forecast for the next 5 days. The background gradient is set according to current weather - temperature. The app holds recently searched weather for 10 minutes. If you ask for the same city withing this time - the app will present you the same data. After that time, the repository fetches fresh one.
+
 App is using OpenWeatherMap free API, which has some limitations for what data we can get, therefore the forecast data is "fake", meaning it uses 5 3-hour intervals which the UI presents as next 5 days.
 
 ## Planned Features
