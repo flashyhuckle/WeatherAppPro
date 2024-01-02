@@ -10,10 +10,11 @@ struct LandingScreens {
         let viewModel = LandingViewModel(
             didTapForecastButton: didTapForecastButton,
             didTapFavoritesButton: didTapFavoritesButton,
-            apiManager: ApiManager(
-                urlCreator: WeatherURLCreator(),
-                requestPerformer: RequestPerformer()
-            ),
+//            apiManager: ApiManager(
+//                urlCreator: WeatherURLCreator(),
+//                requestPerformer: RequestPerformer()
+//            ),
+            repository: CurrentWeatherRepository(),
             favoriteCities: Favorites(),
             locationManager: LocationManager(),
             currentWeather: currentWeather

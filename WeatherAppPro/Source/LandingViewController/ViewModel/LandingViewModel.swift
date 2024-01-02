@@ -3,11 +3,9 @@ final class LandingViewModel {
     private let didTapForecastButton: ((WeatherModel) -> Void)?
     private let didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?
     
-    private let apiManager: ApiManagerInterface
+    private let repository: CurrentWeatherRepositoryType
     private var favoriteCities: FavoritesType
     private var locationManager: LocationManagerType
-    
-    private var cachedCities: [String: WeatherModel] = [:]
 
     var currentWeather: WeatherModel {
         didSet {
@@ -18,7 +16,7 @@ final class LandingViewModel {
     init(
         didTapForecastButton: ((WeatherModel) -> Void)?,
         didTapFavoritesButton: ((((String) -> Void)?, WeatherModel) -> Void)?,
-        apiManager: ApiManagerInterface,
+        repository: CurrentWeatherRepositoryType,
         favoriteCities: FavoritesType,
         locationManager: LocationManagerType,
         currentWeather: WeatherModel
@@ -26,7 +24,7 @@ final class LandingViewModel {
     ) {
         self.didTapForecastButton = didTapForecastButton
         self.didTapFavoritesButton = didTapFavoritesButton
-        self.apiManager = apiManager
+        self.repository = repository
         self.favoriteCities = favoriteCities
         self.locationManager = locationManager
         self.currentWeather = currentWeather
@@ -44,23 +42,10 @@ final class LandingViewModel {
     }
     
     private func searchByCity(city: String) {
-        switch cachedCities[city] {
-        case .none:
-            apiManager.fetchCurrentWeather(for: city) { [ weak self ] result in
-                switch result {
-                case .success(let weather):
-                    guard let self else { return }
-                    self.cachedCities[city] = weather[0]
-                    self.didReceiveData?(weather[0])
-                    self.currentWeather = weather[0]
-
-                case .failure(let error):
-                    print("ERROR: \(error)")
-                }
-            }
-        case .some(let cityWeather):
-            didReceiveData?(cityWeather)
-            currentWeather = cityWeather
+        Task { @MainActor in
+            let weather = try await repository.getCurrentWeather(for: city)
+            didReceiveData?(weather[0])
+            currentWeather = weather[0]
         }
     }
     
@@ -73,16 +58,16 @@ final class LandingViewModel {
     }
     
     private func onTapLocationSearchButton(lat: Double, lon: Double) {
-        apiManager.fetchCurrentWeather(lat: lat, lon: lon) { [ weak self ] result in
-            switch result {
-            case .success(let weather):
-                guard let self else { return }
-                self.didReceiveData?(weather[0])
-                self.currentWeather = weather[0]
-            case .failure(let error):
-                print("ERROR: \(error)")
-            }
-        }
+//        apiManager.fetchCurrentWeather(lat: lat, lon: lon) { [ weak self ] result in
+//            switch result {
+//            case .success(let weather):
+//                guard let self else { return }
+//                self.didReceiveData?(weather[0])
+//                self.currentWeather = weather[0]
+//            case .failure(let error):
+//                print("ERROR: \(error)")
+//            }
+//        }
     }
     
     func onTapFavoriteBarButton() {

@@ -16,7 +16,7 @@ protocol ApiManagerInterface {
     )
 }
 
-enum HTTPRequestError: Error {
+enum HTTPRequestErrorOld: Error {
     case cannotBuildValidURL(baseURLPath: String, path: String)
 }
 
@@ -28,7 +28,7 @@ struct WeatherURLCreator {
         let urlString = currentAPIURL + "&q=" + city
         let urlStrin = ""
         guard let url = URL(string: urlString) else {
-            throw HTTPRequestError.cannotBuildValidURL(baseURLPath: currentAPIURL, path: city)
+            throw HTTPRequestErrorOld.cannotBuildValidURL(baseURLPath: currentAPIURL, path: city)
         }
         return url
     }
@@ -36,7 +36,7 @@ struct WeatherURLCreator {
     func createCurrentWeatherURL(lat: Double, lon: Double) throws -> URL {
         let urlString = currentAPIURL + "&lat=" + String(lat) + "&lon=" + String(lon)
         guard let url = URL(string: urlString) else {
-            throw HTTPRequestError.cannotBuildValidURL(baseURLPath: currentAPIURL, path: ("&lat=" + String(lat) + "&lon=" + String(lon)))
+            throw HTTPRequestErrorOld.cannotBuildValidURL(baseURLPath: currentAPIURL, path: ("&lat=" + String(lat) + "&lon=" + String(lon)))
         }
         return url
     }
@@ -44,7 +44,7 @@ struct WeatherURLCreator {
     func createForecastURL(for city: String) throws -> URL {
         let urlString = forecastAPIURL + "&q=" + city
         guard let url = URL(string: urlString) else {
-            throw HTTPRequestError.cannotBuildValidURL(baseURLPath: forecastAPIURL, path: city)
+            throw HTTPRequestErrorOld.cannotBuildValidURL(baseURLPath: forecastAPIURL, path: city)
         }
         return url
     }
@@ -117,7 +117,7 @@ struct ApiManager: ApiManagerInterface {
             ) { result in
                 onCompletion(result)
             }
-        } catch let error as HTTPRequestError {
+        } catch let error as HTTPRequestErrorOld {
             switch error {
             case let .cannotBuildValidURL(baseURLPath, path):
                 print("Wrong URL | baseURLPath: \(baseURLPath) | path: \(path)")
@@ -141,7 +141,7 @@ struct ApiManager: ApiManagerInterface {
             requestPerformer.performCurrentWeatherRequest(url: url) { result in
                 onCompletion(result)
             }
-        } catch let error as HTTPRequestError {
+        } catch let error as HTTPRequestErrorOld {
             switch error {
             case let .cannotBuildValidURL(baseURLPath, path):
                 print("Wrong URL | baseURLPath: \(baseURLPath) | path: \(path)")
@@ -163,7 +163,7 @@ struct ApiManager: ApiManagerInterface {
             ) { result in
                 onCompletion(result)
             }
-        } catch let error as HTTPRequestError {
+        } catch let error as HTTPRequestErrorOld {
             switch error {
             case let .cannotBuildValidURL(baseURLPath, path):
                 print("Wrong URL | baseURLPath: \(baseURLPath) | path: \(path)")
