@@ -14,7 +14,7 @@ App is using OpenWeatherMap free API, which has some limitations for what data w
 ## Planned Features
 - Better error handling
 - Using different data storage, not UserDefaults
-- Message when user types nonexistent city name
+- Alert when user types nonexistent city name
 
 ## UI Screenshots
 
